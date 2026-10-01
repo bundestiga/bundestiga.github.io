@@ -3,21 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Model K37-K42 | Auratik Kız İçin İnsan Askılık</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <title>Model K37-K42: Auratik Kız İçin İnsan Askılık</title>
   <style>
-    :root {
-      --bg: #0f1115;
-      --card-bg: rgba(26, 29, 36, 0.85);
-      --card-border: rgba(255, 255, 255, 0.08);
-      --accent: #d4af37;
-      --accent-rose: #e63946;
-      --text-main: #f0f2f5;
-      --text-muted: #9ba1b0;
-    }
-
     * {
       box-sizing: border-box;
       margin: 0;
@@ -25,264 +12,263 @@
     }
 
     body {
-      background-color: var(--bg);
-      background-image: 
-        radial-gradient(circle at 15% 15%, rgba(212, 175, 55, 0.07) 0%, transparent 45%),
-        radial-gradient(circle at 85% 85%, rgba(230, 57, 70, 0.06) 0%, transparent 45%);
-      color: var(--text-main);
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      line-height: 1.6;
-      padding: 24px 16px 60px;
-      min-height: 100vh;
+      background-color: #e5e7eb;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: #1f2937;
+      padding: 24px 12px;
+      line-height: 1.5;
     }
 
-    .container {
-      max-width: 680px;
-      margin: 0 auto;
+    /* A4 Broşür Sayfası Görünümü */
+    .sheet {
+      background: #ffffff;
+      max-width: 900px;
+      margin: 0 auto 30px auto;
+      padding: 44px 48px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+      border: 1px solid #d1d5db;
     }
 
-    /* Üst Bilgi Başlık */
-    .header {
-      text-align: center;
-      margin-bottom: 36px;
-      padding-top: 10px;
-    }
-
-    .serial {
-      display: inline-block;
+    /* Üst Başlık */
+    .top-badge {
       font-size: 11px;
-      letter-spacing: 2.5px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: #991b1b;
       text-transform: uppercase;
-      color: var(--accent);
-      border: 1px solid rgba(212, 175, 55, 0.3);
-      padding: 6px 14px;
-      border-radius: 50px;
-      margin-bottom: 18px;
-      background: rgba(212, 175, 55, 0.05);
+      margin-bottom: 6px;
     }
 
     h1 {
-      font-family: 'Cinzel', serif;
-      font-size: 26px;
+      font-family: Georgia, serif;
+      font-size: 28px;
+      color: #111827;
+      line-height: 1.25;
       font-weight: 700;
-      letter-spacing: 0.5px;
-      line-height: 1.35;
-      margin-bottom: 12px;
-      color: #fff;
-    }
-
-    .motto {
-      font-size: 14px;
-      font-style: italic;
-      color: var(--text-muted);
-      border-left: 2px solid var(--accent);
-      padding-left: 12px;
-      margin: 16px auto 0;
-      max-width: 480px;
-      text-align: left;
-    }
-
-    /* Kartlar Genel */
-    .card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      backdrop-filter: blur(12px);
-      border-radius: 18px;
-      padding: 24px;
-      margin-bottom: 20px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-    }
-
-    .section-title {
-      font-family: 'Cinzel', serif;
-      font-size: 16px;
-      color: var(--accent);
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      border-bottom: 1px solid var(--card-border);
-      padding-bottom: 8px;
-    }
-
-    /* Doğuş Hikayesi */
-    .story-text {
-      font-size: 14.5px;
-      color: #d1d5db;
-      text-align: justify;
-      line-height: 1.75;
-    }
-
-    /* Teknik Özellikler Grid */
-    .specs-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-    }
-
-    .spec-item {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.04);
-      padding: 14px 16px;
-      border-radius: 12px;
-    }
-
-    .spec-label {
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: var(--accent);
-      font-weight: 600;
-      margin-bottom: 4px;
-    }
-
-    .spec-desc {
-      font-size: 13.5px;
-      color: #e2e8f0;
-    }
-
-    /* Modlar */
-    .mode-item {
-      background: rgba(255, 255, 255, 0.02);
-      border-left: 3px solid #555;
-      padding: 14px 16px;
-      border-radius: 0 12px 12px 0;
-      margin-bottom: 12px;
-    }
-
-    .mode-romantic { border-color: var(--accent-rose); }
-    .mode-funny { border-color: #38bdf8; }
-    .mode-angry { border-color: #f97316; }
-
-    .mode-title {
-      font-size: 15px;
-      font-weight: 600;
       margin-bottom: 6px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
     }
 
-    .mode-text {
+    .subtitle {
+      font-style: italic;
+      color: #4b5563;
       font-size: 13.5px;
-      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    .divider {
+      height: 3px;
+      background: #991b1b;
+      margin-bottom: 24px;
+    }
+
+    /* İki Sütunlu Sayfa Düzeni */
+    .content-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 24px;
+    }
+
+    /* Sol Sütun Kutuları */
+    .box {
+      border-left: 3px solid #991b1b;
+      padding-left: 12px;
+      margin-bottom: 18px;
+    }
+
+    .box-title {
+      color: #991b1b;
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+
+    .box-text {
+      font-size: 12.5px;
+      color: #374151;
+      text-align: justify;
       line-height: 1.6;
     }
 
-    /* Gizlilik Beyanı */
-    .legal-card {
-      background: rgba(212, 175, 55, 0.04);
-      border: 1px dashed rgba(212, 175, 55, 0.3);
-      border-radius: 16px;
-      padding: 20px;
-      text-align: center;
-      font-size: 12.5px;
-      color: var(--accent);
-      line-height: 1.7;
-    }
-
-    .heart-icon {
-      color: var(--accent-rose);
-      display: inline-block;
-      animation: beat 1.5s infinite;
+    /* Teknik Tablo */
+    .spec-table {
+      width: 100%;
+      border-collapse: collapse;
       margin-top: 10px;
-      font-size: 18px;
+      font-size: 12px;
     }
 
-    @keyframes beat {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.2); }
+    .spec-table th {
+      background-color: #f3ece6;
+      color: #78350f;
+      text-align: left;
+      padding: 8px 10px;
+      font-weight: 700;
+      border: 1px solid #e5e7eb;
+    }
+
+    .spec-table td {
+      padding: 8px 10px;
+      border: 1px solid #e5e7eb;
+      vertical-align: top;
+    }
+
+    .spec-table td.label {
+      font-weight: 700;
+      color: #111827;
+      width: 32%;
+      background-color: #fafaf9;
+    }
+
+    .spec-table td.desc {
+      color: #374151;
+      line-height: 1.45;
+    }
+
+    /* Sarı Arka Planlı Alt Kutu */
+    .highlight-box {
+      background-color: #fffbeb;
+      border-left: 3px solid #b45309;
+      padding: 12px 14px;
+      margin-top: 18px;
+    }
+
+    .highlight-box .box-title {
+      color: #b45309;
+    }
+
+    /* Sağ Sütun Şema Çerçevesi */
+    .schema-frame {
+      border: 1px solid #e5e7eb;
+      background: #fafaf9;
+      padding: 12px;
+      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .schema-frame img {
+      width: 100%;
+      height: auto;
+      max-height: 520px;
+      object-fit: contain;
+      border: 1px solid #f3f4f6;
+      background: #fff;
+    }
+
+    .schema-caption {
+      font-size: 11px;
+      font-style: italic;
+      color: #6b7280;
+      margin-top: 8px;
+      line-height: 1.4;
+    }
+
+    /* Broşür Alt Bilgisi (Footer) */
+    .sheet-footer {
+      margin-top: 32px;
+      padding-top: 12px;
+      border-top: 1px solid #e5e7eb;
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      font-style: italic;
+      color: #6b7280;
+    }
+
+    /* Mobilde düzgün alt alta geçiş */
+    @media (max-width: 768px) {
+      .sheet {
+        padding: 24px 18px;
+      }
+      .content-grid {
+        grid-template-columns: 1fr;
+      }
+      h1 {
+        font-size: 22px;
+      }
     }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    
-    <!-- Üst Başlık -->
-    <header class="header">
-      <div class="serial">KURGUSAL KOLEKSİYON SERİ NO: 30.09.2026</div>
-      <h1>Model K37-K42:<br>Auratik Kız İçin İnsan Askılık</h1>
-      <div class="motto">
-        "Reddedildikten sonra dahi yanınızdan ayrılmayan, sadakatle tasarlanmış mekanik zarafet."
-      </div>
-    </header>
+  <div class="sheet">
+    <!-- Üst Başlıklar -->
+    <div class="top-badge">KURGUSAL KOLEKSİYON • SERİ NO: 30.09.2026</div>
+    <h1>Model K37-K42: Auratik Kız İçin İnsan Askılık</h1>
+    <div class="subtitle">"Reddedildikten sonra dahi yanınızdan ayrılmayan, sadakatle tasarlanmış mekanik zarafet."</div>
+    <div class="divider"></div>
 
-    <!-- Doğuş Hikayesi -->
-    <section class="card">
-      <div class="section-title">Doğuş Hikayesi (Origins)</div>
-      <p class="story-text">
-        Tüm zamanların en auratik kızına ilan-ı aşk edip nazikçe geri çevrilen bir mucidin; <em>"N'olur evinde kıyafetlerini tutan askılık olayım, bari o şekilde evinde bulunayım"</em> fikriyle hayat bulmuş tekil bir mühendislik harikasıdır. 
-        <br><br>
-        (Zeki, Çalışkan, Tatlı, Kibar, İnanılmaz Güzel, Harika ellere ve Hafıza Silen Gözlere sahip kısacası <strong>AURATİK</strong> bir Endüstri Mühendisi kızın Anamur tatili sırasındaki o unutulmaz telefon görüşmesinde temelleri atılmıştır.)
-      </p>
-    </section>
-
-    <!-- Donanım ve Teknik Özellikler -->
-    <section class="card">
-      <div class="section-title">Genel & Donanımsal Özellikler</div>
-      <div class="specs-grid">
-        <div class="spec-item">
-          <div class="spec-label">Kullanıcı Kilidi</div>
-          <div class="spec-desc">Sadece dünyada 1 adet bulunan Auratik Kız'a biyo-rezonansla duyarlı. Başkası asla kullanamaz.</div>
-        </div>
-        <div class="spec-item">
-          <div class="spec-label">Kol Kapasitesi</div>
-          <div class="spec-desc">2 bağımsız robotik kol; her biri maksimum 20 kg yük taşıma torkuna sahip.</div>
-        </div>
-        <div class="spec-item">
-          <div class="spec-label">Maksimum Yük</div>
-          <div class="spec-desc">İki kol kat kat kıyafet taşıyabilir; acil durumda auratik kızı tamamen kucaklayıp kaldırabilir.</div>
-        </div>
-        <div class="spec-item">
-          <div class="spec-label">Baş Ünitesi</div>
-          <div class="spec-desc">Çift yönlü (önlü-arkalı) şapka ve ceket kancası entegre mekanik portre.</div>
-        </div>
-        <div class="spec-item">
-          <div class="spec-label">Otonom Takip</div>
-          <div class="spec-desc">Oda içi serbest devriye; seyahat ve şehirlerarası yolculuklarda peşinden gelebilme donanımı.</div>
-        </div>
-        <div class="spec-item">
-          <div class="spec-label">Otonom Toplama & Giydirme</div>
-          <div class="spec-desc">Kıyafet odaya fırlatıldığında anında yerden alır, silkeler, kırışıklıklarını giderip üzerine asar. Oturduğunuz yerden elinizi uzatmanız teslim için yeterlidir.</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Duygu Durumları (Modlar) -->
-    <section class="card">
-      <div class="section-title">Duygu Durumları & Yaşam Döngüsü</div>
+    <div class="content-grid">
       
-      <div class="mode-item mode-romantic">
-        <div class="mode-title" style="color: #fda4af;">1. Romantik Mod</div>
-        <div class="mode-text">
-          Ağzında bazen beyaz güller, laleler; elinde ortancalar ve gelincikler bulunur. Odanın akustiğine uygun tonda romantik şiirler okumaya çalışır, zarafet ve hayranlık dolu övgüler fısıldar.
+      <!-- Sol Taraf Metinler ve Tablo -->
+      <div class="left-col">
+        
+        <div class="box">
+          <div class="box-title">Doğuş Hikayesi (Origins)</div>
+          <div class="box-text">
+            Tüm zamanların en auratik kızına ilan-ı aşk edip nazikçe geri çevrilen bir mucidin; <em>"Nolur evinde kıyafetlerini tutan askılık olayım, bari o şekilde evinde olayım"</em> fikriyle hayat bulmuş tekil bir mühendislik harikasıdır. (Zeki, Çalışkan, Tatlı, Kibar, İnanılmaz Güzel, Harika elleri, İnanılmaz Gözleri, Hafıza Silen Gözleri olan kısacası AURATİK bir Endüstri mühendisi kızın Anamur tatili sırasında gerçekleşen telefon görüşmesinde temelleri atılmıştır.
+          </div>
+        </div>
+
+        <table class="spec-table">
+          <thead>
+            <tr>
+              <th colspan="2">Genel & Donanımsal Özellikler</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="label">Kullanıcı Kilidi</td>
+              <td class="desc">Sadece dünyada 1 adet bulunan Auratik Kız'a biyo-rezonansla duyarlı. Başkası asla kullanamaz.</td>
+            </tr>
+            <tr>
+              <td class="label">Kol Kapasitesi</td>
+              <td class="desc">2 bağımsız robotik kol; her biri maksimum <strong>20 kg</strong> yük taşıma torkuna sahip.</td>
+            </tr>
+            <tr>
+              <td class="label">Maksimum Yük</td>
+              <td class="desc">İki kol kat kat kıyafet taşıyabilir; acil durumda auratik kızı tamamen kucaklayıp kaldırabilir.</td>
+            </tr>
+            <tr>
+              <td class="label">Baş Ünitesi</td>
+              <td class="desc">Çift yönlü (önlü-arkalı) şapka ve ceket kancası entegre mekanik portre.</td>
+            </tr>
+            <tr>
+              <td class="label">Otonom Takip</td>
+              <td class="desc">Oda içi serbest devriye; seyahat ve şehirlerarası yolculuklarda peşinden gelebilme donanımı.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="highlight-box">
+          <div class="box-title">Otonom Toplama & Giydirme Asistanı</div>
+          <div class="box-text">
+            Kullanıcı odaya girip yorgunlukla ceketini veya kazağını rastgele yere fırlattığında, Model K37 K42 hassas algılayıcılarıyla kıyafeti anında yerden alır, silkeler, kırışıklıklarını giderir ve nizami şekilde üzerine asar. Oturduğunuz yerden elinizi uzatmanız giysiyi size teslim etmesi için yeterlidir.
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Sağ Taraf Görsel Alanı -->
+      <div class="right-col">
+        <div class="schema-frame">
+          <!-- Yüklediğiniz görsel adı mod3.jpg ise burada gösterilir -->
+          <img src="mod3.jpg" alt="Model K37-K42 Şeması" onerror="this.onerror=null; this.src='Ürün Tanıtım Broşürü.pdf'; this.alt='Şema Yükleniyor...';">
+          <div class="schema-caption">
+            Şema 1.1: Human Valet H-V1 gövde şasisi, yük terazisi ve çift yönlü askı mimarisi.
+          </div>
         </div>
       </div>
 
-      <div class="mode-item mode-funny">
-        <div class="mode-title" style="color: #7dd3fc;">2. Komik Mod</div>
-        <div class="mode-text">
-          Günün stresini unutturan ince espriler yapar, neşeli şakalar üretir ve kıyafetleri asarken hafif müzikler eşliğinde tebessüm ettirici bir enerji saçar.
-        </div>
-      </div>
+    </div>
 
-      <div class="mode-item mode-angry">
-        <div class="mode-title" style="color: #fdba74;">3. Sinirli Mod</div>
-        <div class="mode-text">
-          Biraz huysuz, homurdanan ve sert mizaçlı bir askılığa dönüşür. Montu sertçe tutar, yere atılan eşyalar için trip atar ama yine de kusursuz asar. 
-          <br><em>(Not: Bu modda istemsizce Kastamonu şivesine geçebilir, kullanıcı talebi olmadan bu özellik kapatılamaz.)</em>
-        </div>
-      </div>
-    </section>
-
-    <!-- Gizlilik Beyanı -->
-    <footer class="legal-card">
-      <strong>MÜŞTERİ & TESLİMAT GİZLİLİK BEYANI</strong><br>
-      Ürünün gizli özellikleri sadece auratik kızın biyokimliği ile aktif edilebilmektedir. Teklif sadece bu kız için geçerlidir, nihai ürün teklif kabul edildikten sonra gösterilebilir.<br>
-      <span class="heart-icon">♥</span><br>
-      <small style="opacity: 0.7;">Tüm Hakları Auratik Sahibine Aittir.</small>
-    </footer>
+    <!-- Alt Bilgi -->
+    <div class="sheet-footer">
+      <div>Model H-V1 Prototype — Yalnızca Auratik Kullanıcı Erişimi</div>
+      <div>Sayfa 1 / 2</div>
+    </div>
 
   </div>
 
