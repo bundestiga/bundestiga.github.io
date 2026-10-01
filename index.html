@@ -2,7 +2,8 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <link rel="icon" type="image/jpg" href="favicon.jpg">
+  <!-- FAVICON JPG FORMATI -->
+  <link rel="icon" type="image/jpeg" href="favicon.jpg">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bundestiga | Hoş Geldiniz</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,7 +25,6 @@
       --btn-bg: #eadecb;
       --text-dark: #37352f;
       --text-muted: #797670;
-      --arrow-color: #8c7362;
     }
 
     * {
@@ -168,7 +168,7 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* ================= 0. GÖRÜNÜM: KARŞILAMA EKRANI (GÖRSELDEKİ GİBİ) ================= */
+    /* ================= 0. GÖRÜNÜM: KARŞILAMA EKRANI ================= */
     .welcome-screen {
       position: relative;
       min-height: 100vh;
@@ -185,7 +185,6 @@
       overflow: hidden;
     }
 
-    /* Sol şerit efekti */
     .welcome-screen::before {
       content: "";
       position: absolute;
@@ -222,7 +221,7 @@
       letter-spacing: 0.2px;
     }
 
-    /* YAY ŞEKLİNDE KIVRILAN TATLI OK (SVG) */
+    /* 3 BOYUTLU VE YÖNÜ MENÜYE DOĞRU OLAN YAY ÇİZGİSİ (SVG) */
     .curved-arrow-container {
       position: absolute;
       top: 0;
@@ -235,30 +234,18 @@
 
     .curved-arrow-svg {
       position: absolute;
-      top: 40px;
-      left: 70px;
-      width: calc(65% + 150px);
-      max-width: 900px;
-      height: 60vh;
-      max-height: 480px;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       overflow: visible;
+      filter: drop-shadow(0 6px 12px rgba(100, 60, 45, 0.22));
     }
 
     @media (max-width: 768px) {
-      .welcome-title {
-        font-size: 34px;
-      }
-      .welcome-desc {
-        font-size: 15px;
-      }
-      .welcome-screen::before {
-        width: 75px;
-      }
-      .curved-arrow-svg {
-        width: 85%;
-        left: 60px;
-        height: 45vh;
-      }
+      .welcome-title { font-size: 34px; }
+      .welcome-desc { font-size: 15px; }
+      .welcome-screen::before { width: 75px; }
     }
 
     /* ================= 1. GÖRÜNÜM: ÖPÜŞME SAYACI ================= */
@@ -850,10 +837,7 @@
     }
 
     @media (max-width: 768px) {
-      .circles-wrapper {
-        width: 320px;
-        height: 320px;
-      }
+      .circles-wrapper { width: 320px; height: 320px; }
       .circle-outer { width: 310px; height: 310px; }
       .circle-mid { width: 240px; height: 240px; }
       .circle-inner { width: 170px; height: 170px; }
@@ -893,21 +877,51 @@
   <main class="view-section active-view" id="welcomeScreen">
     <div class="welcome-screen">
       
-      <!-- Menüyü Gösteren Yay Şeklindeki Zarif Ok (SVG) -->
+      <!-- 3 BOYUTLU VE YÖNÜ MENÜYE DOĞRU OLAN ZARİF YAY OK (SVG) -->
       <div class="curved-arrow-container">
-        <svg class="curved-arrow-svg" viewBox="0 0 700 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg class="curved-arrow-svg" viewBox="0 0 1000 600" preserveAspectRatio="none">
           <defs>
-            <marker id="arrowHead" viewBox="0 0 10 10" refX="2" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-              <path d="M 9 1.5 L 2 5 L 9 8.5" fill="none" stroke="#8c7362" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <!-- 3D Gradyan Geçişi (Aydınlık & Gölgeli Tüp Efekti) -->
+            <linearGradient id="tubeGrad3D" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#7a5c48" />
+              <stop offset="40%" stop-color="#b6957e" />
+              <stop offset="70%" stop-color="#8f6c56" />
+              <stop offset="100%" stop-color="#5a4233" />
+            </linearGradient>
+
+            <!-- Gövde 3D Vurgusu (İç Işıma) -->
+            <linearGradient id="highlightGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#ffffff" stop-opacity="0.6"/>
+              <stop offset="100%" stop-color="#ffffff" stop-opacity="0.1"/>
+            </linearGradient>
+
+            <!-- Sol Üstteki Menüyü Gösteren Ok Ucu -->
+            <marker id="arrowHeadLeft" viewBox="0 0 16 16" refX="2" refY="8" markerWidth="9" markerHeight="9" orient="auto">
+              <path d="M 14 2 L 2 8 L 14 14" fill="none" stroke="#7a5c48" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
             </marker>
           </defs>
-          <!-- Alttaki metnin sağından başlayıp yukarıdaki butona uzanan yay çizgisi -->
-          <path d="M 520 230 C 640 230 630 20 40 20" 
-                stroke="#8c7362" 
-                stroke-width="2.2" 
+
+          <!-- 1. Katman: 3D Alt Gölge Çizgisi -->
+          <path d="M 680 372 C 860 372 840 50 82 50" 
+                stroke="rgba(80, 50, 35, 0.28)" 
+                stroke-width="5" 
+                stroke-linecap="round" 
+                fill="none" />
+
+          <!-- 2. Katman: Ana 3D Gövde Çizgisi (Ok Ucu ile Birlikte) -->
+          <path d="M 680 370 C 860 370 840 48 80 48" 
+                stroke="url(#tubeGrad3D)" 
+                stroke-width="3.5" 
                 stroke-linecap="round" 
                 fill="none" 
-                marker-end="url(#arrowHead)"/>
+                marker-end="url(#arrowHeadLeft)"/>
+
+          <!-- 3. Katman: Üst Parlama / Işık Vurgusu -->
+          <path d="M 678 369 C 856 369 836 47 84 47" 
+                stroke="url(#highlightGrad)" 
+                stroke-width="1.2" 
+                stroke-linecap="round" 
+                fill="none" />
         </svg>
       </div>
 
@@ -925,7 +939,6 @@
     <div class="counter-screen">
       <h2 class="counter-header-title">Öpüşme Sayacı</h2>
 
-      <!-- Mod Seçim Butonları -->
       <div class="modes-container">
         <button class="mode-pill-btn" data-mode="normal" id="btnNormal">Normal</button>
         <button class="mode-pill-btn selected" data-mode="hiiy" id="btnHiiy">Hiiy Mod</button>
@@ -934,7 +947,6 @@
         <div class="tooltip-bubble" id="modeTooltip">Öpülmediğinde telaşlı bir şekilde sizi öpecektir</div>
       </div>
 
-      <!-- Eşmerkezli Daireler -->
       <div class="circles-wrapper" id="circlesWrapper">
         <div class="concentric-circle circle-outer"></div>
         <div class="concentric-circle circle-mid"></div>
@@ -944,7 +956,6 @@
         </div>
       </div>
 
-      <!-- Kontroller -->
       <div class="actions-panel">
         <button class="btn-kiss-reset" id="btnKissReset">
           <span>💋</span> Öpüldük / Sıfırla
@@ -966,7 +977,7 @@
     </div>
   </main>
 
-  <!-- DELİ MOD POPUP (MODAL) -->
+  <!-- DELİ MOD POPUP -->
   <div class="modal-backdrop" id="deliModal">
     <div class="popup-box">
       <div class="popup-text">
@@ -1106,7 +1117,6 @@
 
   <!-- JAVASCRIPT MOTORU -->
   <script>
-    // 1. SOL MENÜ VE EKRAN GEÇİŞLERİ
     const menuToggle = document.getElementById('menuToggle');
     const sidebar = document.getElementById('sidebar');
     const sidebarOverlay = document.getElementById('sidebarOverlay');
@@ -1141,7 +1151,6 @@
       });
     });
 
-    // 2. MODLAR, EŞİKLER VE TOOLTIP VERİLERİ
     const MODES = {
       normal: { threshold: 500, desc: "Normal bir seviyedir" },
       hiiy: { threshold: 300, desc: "Öpülmediğinde telaşlı bir şekilde sizi öpecektir" },
@@ -1207,7 +1216,6 @@
       deliModal.classList.remove('show');
     });
 
-    // 3. SAYAÇ VE ALARM MANTIĞI
     function updateCounterState() {
       const now = Date.now();
       const diffMinutes = Math.max(0, Math.floor((now - lastKissTime) / 60000));
@@ -1229,7 +1237,6 @@
 
     setInterval(updateCounterState, 1000);
 
-    // 4. "ÖPÜLDÜK / SIFIRLA" BUTONU
     document.getElementById('btnKissReset').addEventListener('click', () => {
       lastKissTime = Date.now();
       localStorage.setItem('last_kiss_timestamp', lastKissTime);
@@ -1237,7 +1244,6 @@
       updateCounterState();
     });
 
-    // 5. BAŞLANGIÇ TARİHİ DEĞİŞTİRME PANELİ
     const dateEditorCard = document.getElementById('dateEditorCard');
     const customDatetimeInput = document.getElementById('customDatetimeInput');
 
@@ -1261,7 +1267,6 @@
       }
     });
 
-    // 6. BİLDİRİM DESTEĞİ
     const btnToggleNotify = document.getElementById('btnToggleNotify');
 
     btnToggleNotify.addEventListener('click', () => {
@@ -1274,7 +1279,7 @@
           btnToggleNotify.textContent = "🔔 Bildirimler Açık";
           new Notification("Öpüşme Sayacı", {
             body: "Bildirimler başarıyla açıldı! Eşik aşıldığında haber vereceğiz.",
-            icon: "favicon.png"
+            icon: "favicon.jpg"
           });
         }
       });
@@ -1284,7 +1289,7 @@
       if ("Notification" in window && Notification.permission === "granted") {
         new Notification("Dikkat! Eşik Aşıldı 💋", {
           body: "Belirlenen öpüşmeme süresi aşıldı! Acilen öpüşme gerekiyor!",
-          icon: "favicon.png"
+          icon: "favicon.jpg"
         });
       }
     }
