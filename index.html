@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <link rel="icon" type="image/jpg" href="favicon.jpg">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Özel Alan | Model K37-K42 & Öpüşme Sayacı</title>
+  <title>Bundestiga | Hoş Geldiniz</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -22,9 +22,9 @@
       --circle-alarm-outer: rgba(234, 93, 113, 0.18);
 
       --btn-bg: #eadecb;
-      --btn-active-bg: #ffffff;
       --text-dark: #37352f;
       --text-muted: #797670;
+      --arrow-color: #8c7362;
     }
 
     * {
@@ -45,34 +45,35 @@
     /* ================= SOL AÇILIR MENÜ (DRAWER) ================= */
     .menu-trigger {
       position: fixed;
-      top: 20px;
-      left: 20px;
+      top: 24px;
+      left: 24px;
       z-index: 1000;
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      background: rgba(255, 255, 255, 0.85);
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: rgba(235, 222, 203, 0.85);
       backdrop-filter: blur(8px);
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       gap: 5px;
       cursor: pointer;
-      border: 1px solid rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.7);
       transition: all 0.25s ease;
     }
 
     .menu-trigger:hover {
       background: #ffffff;
-      transform: scale(1.04);
+      transform: scale(1.05);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.09);
     }
 
     .menu-trigger span {
-      width: 20px;
+      width: 22px;
       height: 2px;
-      background: #4a453e;
+      background: #736152;
       border-radius: 2px;
       transition: all 0.3s ease;
     }
@@ -99,14 +100,14 @@
     .sidebar {
       position: fixed;
       top: 0;
-      left: -290px;
-      width: 280px;
+      left: -300px;
+      width: 290px;
       height: 100%;
       background: #faf7f2;
       z-index: 999;
-      box-shadow: 10px 0 30px rgba(0, 0, 0, 0.1);
+      box-shadow: 10px 0 35px rgba(0, 0, 0, 0.1);
       transition: left 0.32s cubic-bezier(0.16, 1, 0.3, 1);
-      padding: 30px 22px;
+      padding: 34px 22px;
       display: flex;
       flex-direction: column;
       border-right: 1px solid #ebd9c8;
@@ -135,7 +136,7 @@
       border-radius: 12px;
       margin-bottom: 8px;
       cursor: pointer;
-      font-size: 14px;
+      font-size: 14.5px;
       font-weight: 600;
       color: #555048;
       transition: all 0.2s ease;
@@ -167,7 +168,100 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* ================= EKRAN 1: ÖPÜŞME SAYACI GÖRÜNÜMÜ ================= */
+    /* ================= 0. GÖRÜNÜM: KARŞILAMA EKRANI (GÖRSELDEKİ GİBİ) ================= */
+    .welcome-screen {
+      position: relative;
+      min-height: 100vh;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+      background: radial-gradient(circle at 75% 35%, rgba(234, 153, 153, 0.45) 0%, rgba(251, 247, 238, 0.2) 55%),
+                  radial-gradient(circle at 20% 70%, rgba(235, 178, 168, 0.25) 0%, transparent 50%),
+                  linear-gradient(135deg, #fbf7ee 0%, #ede3cf 100%);
+      overflow: hidden;
+    }
+
+    /* Sol şerit efekti */
+    .welcome-screen::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 96px;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.25);
+      border-right: 1px solid rgba(237, 222, 205, 0.6);
+      pointer-events: none;
+    }
+
+    .welcome-content {
+      position: relative;
+      z-index: 5;
+      max-width: 780px;
+      margin-top: 50px;
+    }
+
+    .welcome-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 56px;
+      font-weight: 500;
+      color: #3b332b;
+      letter-spacing: -0.5px;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+
+    .welcome-desc {
+      font-size: 19px;
+      color: #5a4f45;
+      font-weight: 400;
+      letter-spacing: 0.2px;
+    }
+
+    /* YAY ŞEKLİNDE KIVRILAN TATLI OK (SVG) */
+    .curved-arrow-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 4;
+    }
+
+    .curved-arrow-svg {
+      position: absolute;
+      top: 40px;
+      left: 70px;
+      width: calc(65% + 150px);
+      max-width: 900px;
+      height: 60vh;
+      max-height: 480px;
+      overflow: visible;
+    }
+
+    @media (max-width: 768px) {
+      .welcome-title {
+        font-size: 34px;
+      }
+      .welcome-desc {
+        font-size: 15px;
+      }
+      .welcome-screen::before {
+        width: 75px;
+      }
+      .curved-arrow-svg {
+        width: 85%;
+        left: 60px;
+        height: 45vh;
+      }
+    }
+
+    /* ================= 1. GÖRÜNÜM: ÖPÜŞME SAYACI ================= */
     .counter-screen {
       min-height: 100vh;
       display: flex;
@@ -187,7 +281,6 @@
       letter-spacing: -0.5px;
     }
 
-    /* Mod Seçim Butonları */
     .modes-container {
       position: relative;
       display: flex;
@@ -228,7 +321,6 @@
       border: 1.5px solid #ea5d71;
     }
 
-    /* Tooltip / Açıklama Baloncuğu */
     .tooltip-bubble {
       position: absolute;
       top: 100%;
@@ -254,7 +346,6 @@
       transform: translateX(-50%) translateY(14px);
     }
 
-    /* EŞMERKEZLİ DAİRELER (CONCENTRIC CIRCLES) */
     .circles-wrapper {
       position: relative;
       width: 380px;
@@ -271,7 +362,6 @@
       transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    /* Dış Halka */
     .circle-outer {
       width: 370px;
       height: 370px;
@@ -280,7 +370,6 @@
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
     }
 
-    /* Orta Halka */
     .circle-mid {
       width: 290px;
       height: 290px;
@@ -289,7 +378,6 @@
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
     }
 
-    /* İç Halka (Merkez) */
     .circle-inner {
       width: 210px;
       height: 210px;
@@ -320,7 +408,6 @@
       margin-top: 6px;
     }
 
-    /* ALARM / EŞİK AŞILDI DURUMU (KIRMIZI / PULSE) */
     .circles-wrapper.alarm .circle-outer {
       background: var(--circle-alarm-outer);
       border-color: rgba(234, 93, 113, 0.4);
@@ -352,7 +439,6 @@
       50% { transform: scale(1.02); }
     }
 
-    /* KONTROL BUTONLARI & SAAT AYARI */
     .actions-panel {
       display: flex;
       flex-direction: column;
@@ -411,7 +497,6 @@
       color: #1f1d1a;
     }
 
-    /* Başlangıç Tarihi Düzenleme Çekmecesi */
     .date-editor-card {
       background: #ffffff;
       padding: 16px;
@@ -452,7 +537,6 @@
       cursor: pointer;
     }
 
-    /* DELİ MOD POP-UP / MODAL (GÖRSELDEKİ GİBİ ŞIK) */
     .modal-backdrop {
       position: fixed;
       top: 0;
@@ -531,7 +615,7 @@
       cursor: pointer;
     }
 
-    /* ================= EKRAN 2: ASKILIK KATALOĞU (ORİJİNAL) ================= */
+    /* ================= 2. GÖRÜNÜM: ASKILIK KATALOĞU ================= */
     .catalog-screen {
       padding: 40px 12px 60px;
       background-color: #d1d5db;
@@ -794,7 +878,10 @@
   <!-- SOL ÇEKMECE MENÜSÜ -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-title">Gezinti Menüsü</div>
-    <div class="nav-item active" data-target="counterScreen">
+    <div class="nav-item active" data-target="welcomeScreen">
+      <span>🏠</span> Ana Sayfa
+    </div>
+    <div class="nav-item" data-target="counterScreen">
       <span>💋</span> Öpüşme Sayacı
     </div>
     <div class="nav-item" data-target="catalogScreen">
@@ -802,8 +889,39 @@
     </div>
   </aside>
 
+  <!-- ================= 0. GÖRÜNÜM: KARŞILAMA EKRANI ================= -->
+  <main class="view-section active-view" id="welcomeScreen">
+    <div class="welcome-screen">
+      
+      <!-- Menüyü Gösteren Yay Şeklindeki Zarif Ok (SVG) -->
+      <div class="curved-arrow-container">
+        <svg class="curved-arrow-svg" viewBox="0 0 700 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <marker id="arrowHead" viewBox="0 0 10 10" refX="2" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M 9 1.5 L 2 5 L 9 8.5" fill="none" stroke="#8c7362" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </marker>
+          </defs>
+          <!-- Alttaki metnin sağından başlayıp yukarıdaki butona uzanan yay çizgisi -->
+          <path d="M 520 230 C 640 230 630 20 40 20" 
+                stroke="#8c7362" 
+                stroke-width="2.2" 
+                stroke-linecap="round" 
+                fill="none" 
+                marker-end="url(#arrowHead)"/>
+        </svg>
+      </div>
+
+      <!-- Karşılama Yazısı -->
+      <div class="welcome-content">
+        <h1 class="welcome-title">Bundestigaya Hoşgeldiniz</h1>
+        <p class="welcome-desc">Sol menüden istediğiniz sayfayı seçebilirsiniz</p>
+      </div>
+
+    </div>
+  </main>
+
   <!-- ================= 1. GÖRÜNÜM: ÖPÜŞME SAYACI ================= -->
-  <main class="view-section active-view" id="counterScreen">
+  <main class="view-section" id="counterScreen">
     <div class="counter-screen">
       <h2 class="counter-header-title">Öpüşme Sayacı</h2>
 
@@ -813,7 +931,6 @@
         <button class="mode-pill-btn selected" data-mode="hiiy" id="btnHiiy">Hiiy Mod</button>
         <button class="mode-pill-btn" data-mode="deli" id="btnDeli">Deli Mod</button>
 
-        <!-- Tooltip Baloncuğu -->
         <div class="tooltip-bubble" id="modeTooltip">Öpülmediğinde telaşlı bir şekilde sizi öpecektir</div>
       </div>
 
@@ -838,7 +955,6 @@
           <button class="btn-sub" id="btnToggleDateEditor">⚙️ Başlangıç Ayarla</button>
         </div>
 
-        <!-- Başlangıç Zamanı Belirleme Kutucuğu -->
         <div class="date-editor-card" id="dateEditorCard">
           <div style="font-size: 11px; font-weight: 600; color: #777;">Öpüşme Zamanı Değiştir:</div>
           <div class="date-input-group">
@@ -850,7 +966,7 @@
     </div>
   </main>
 
-  <!-- DELİ MOD ONAY POPUP'I (MODAL) -->
+  <!-- DELİ MOD POPUP (MODAL) -->
   <div class="modal-backdrop" id="deliModal">
     <div class="popup-box">
       <div class="popup-text">
@@ -866,7 +982,7 @@
   <!-- ================= 2. GÖRÜNÜM: ASKILIK KATALOĞU ================= -->
   <main class="view-section" id="catalogScreen">
     <div class="catalog-screen">
-      <!-- Broşür 1. Sayfa -->
+      <!-- 1. Sayfa -->
       <div class="sheet">
         <div class="top-badge">KURGUSAL KOLEKSİYON • SERİ NO: 30.09.2026</div>
         <h1>Model K37-K42: Auratik Kız İçin İnsan Askılık</h1>
@@ -934,7 +1050,7 @@
         </div>
       </div>
 
-      <!-- Broşür 2. Sayfa -->
+      <!-- 2. Sayfa -->
       <div class="sheet">
         <div class="top-badge">DUYGUSAL İŞLETİM SİSTEMLERİ & SAHA UYGULAMALARI</div>
         <h1>Duygu Durumları & Dinamik Yaşam Döngüsü</h1>
@@ -988,7 +1104,7 @@
     </div>
   </main>
 
-  <!-- JAVASCRIPT MOTORU (VANILLA JS) -->
+  <!-- JAVASCRIPT MOTORU -->
   <script>
     // 1. SOL MENÜ VE EKRAN GEÇİŞLERİ
     const menuToggle = document.getElementById('menuToggle');
@@ -1035,7 +1151,6 @@
     let currentMode = localStorage.getItem('selected_kiss_mode') || 'hiiy';
     let lastKissTime = parseInt(localStorage.getItem('last_kiss_timestamp'), 10);
 
-    // Eğer daha önce kaydedilmiş bir öpüşme tarihi yoksa şu anı baz al
     if (!lastKissTime) {
       lastKissTime = Date.now();
       localStorage.setItem('last_kiss_timestamp', lastKissTime);
@@ -1048,7 +1163,6 @@
     const deliModal = document.getElementById('deliModal');
     let notificationSentForCurrentPeriod = false;
 
-    // Mod Butonu Güncelleme
     function setMode(modeKey) {
       currentMode = modeKey;
       localStorage.setItem('selected_kiss_mode', modeKey);
@@ -1064,11 +1178,9 @@
       updateCounterState();
     }
 
-    // Buton Dinleyicileri
     modeButtons.forEach(btn => {
       const modeKey = btn.getAttribute('data-mode');
 
-      // Üzerine gelince (hover) açıklama gösterme
       btn.addEventListener('mouseenter', () => {
         modeTooltip.textContent = MODES[modeKey].desc;
         modeTooltip.classList.add('visible');
@@ -1077,7 +1189,6 @@
         modeTooltip.classList.remove('visible');
       });
 
-      // Tıklama davranışı
       btn.addEventListener('click', () => {
         if (modeKey === 'deli') {
           deliModal.classList.add('show');
@@ -1087,7 +1198,6 @@
       });
     });
 
-    // Deli Mod Pop-up Butonları
     document.getElementById('btnDeliConfirm').addEventListener('click', () => {
       deliModal.classList.remove('show');
       setMode('deli');
@@ -1107,7 +1217,6 @@
 
       if (diffMinutes >= threshold) {
         circlesWrapper.classList.add('alarm');
-        // Eşik aşıldığında bildirim gönder
         if (!notificationSentForCurrentPeriod) {
           sendPushNotification();
           notificationSentForCurrentPeriod = true;
@@ -1118,7 +1227,6 @@
       }
     }
 
-    // Her saniye kontrol et
     setInterval(updateCounterState, 1000);
 
     // 4. "ÖPÜLDÜK / SIFIRLA" BUTONU
@@ -1153,7 +1261,7 @@
       }
     });
 
-    // 6. TARAYICI BİLDİRİMİ (NOTIFICATION API)
+    // 6. BİLDİRİM DESTEĞİ
     const btnToggleNotify = document.getElementById('btnToggleNotify');
 
     btnToggleNotify.addEventListener('click', () => {
@@ -1181,7 +1289,6 @@
       }
     }
 
-    // İlk yükleme
     setMode(currentMode);
     updateCounterState();
   </script>
