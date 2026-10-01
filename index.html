@@ -2,12 +2,289 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="refresh" content="0; url=https://share.gemini.google/pa36s5oQTxdQ">
-  <title>Yönlendiriliyorsunuz...</title>
-  <script>
-    window.location.replace("https://share.gemini.google/pa36s5oQTxdQ");
-  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Model K37-K42 | Auratik Kız İçin İnsan Askılık</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0f1115;
+      --card-bg: rgba(26, 29, 36, 0.85);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --accent: #d4af37;
+      --accent-rose: #e63946;
+      --text-main: #f0f2f5;
+      --text-muted: #9ba1b0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      background-image: 
+        radial-gradient(circle at 15% 15%, rgba(212, 175, 55, 0.07) 0%, transparent 45%),
+        radial-gradient(circle at 85% 85%, rgba(230, 57, 70, 0.06) 0%, transparent 45%);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      line-height: 1.6;
+      padding: 24px 16px 60px;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    /* Üst Bilgi Başlık */
+    .header {
+      text-align: center;
+      margin-bottom: 36px;
+      padding-top: 10px;
+    }
+
+    .serial {
+      display: inline-block;
+      font-size: 11px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      padding: 6px 14px;
+      border-radius: 50px;
+      margin-bottom: 18px;
+      background: rgba(212, 175, 55, 0.05);
+    }
+
+    h1 {
+      font-family: 'Cinzel', serif;
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      line-height: 1.35;
+      margin-bottom: 12px;
+      color: #fff;
+    }
+
+    .motto {
+      font-size: 14px;
+      font-style: italic;
+      color: var(--text-muted);
+      border-left: 2px solid var(--accent);
+      padding-left: 12px;
+      margin: 16px auto 0;
+      max-width: 480px;
+      text-align: left;
+    }
+
+    /* Kartlar Genel */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(12px);
+      border-radius: 18px;
+      padding: 24px;
+      margin-bottom: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    }
+
+    .section-title {
+      font-family: 'Cinzel', serif;
+      font-size: 16px;
+      color: var(--accent);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 8px;
+    }
+
+    /* Doğuş Hikayesi */
+    .story-text {
+      font-size: 14.5px;
+      color: #d1d5db;
+      text-align: justify;
+      line-height: 1.75;
+    }
+
+    /* Teknik Özellikler Grid */
+    .specs-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .spec-item {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      padding: 14px 16px;
+      border-radius: 12px;
+    }
+
+    .spec-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .spec-desc {
+      font-size: 13.5px;
+      color: #e2e8f0;
+    }
+
+    /* Modlar */
+    .mode-item {
+      background: rgba(255, 255, 255, 0.02);
+      border-left: 3px solid #555;
+      padding: 14px 16px;
+      border-radius: 0 12px 12px 0;
+      margin-bottom: 12px;
+    }
+
+    .mode-romantic { border-color: var(--accent-rose); }
+    .mode-funny { border-color: #38bdf8; }
+    .mode-angry { border-color: #f97316; }
+
+    .mode-title {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .mode-text {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* Gizlilik Beyanı */
+    .legal-card {
+      background: rgba(212, 175, 55, 0.04);
+      border: 1px dashed rgba(212, 175, 55, 0.3);
+      border-radius: 16px;
+      padding: 20px;
+      text-align: center;
+      font-size: 12.5px;
+      color: var(--accent);
+      line-height: 1.7;
+    }
+
+    .heart-icon {
+      color: var(--accent-rose);
+      display: inline-block;
+      animation: beat 1.5s infinite;
+      margin-top: 10px;
+      font-size: 18px;
+    }
+
+    @keyframes beat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+  </style>
 </head>
 <body>
+
+  <div class="container">
+    
+    <!-- Üst Başlık -->
+    <header class="header">
+      <div class="serial">KURGUSAL KOLEKSİYON SERİ NO: 30.09.2026</div>
+      <h1>Model K37-K42:<br>Auratik Kız İçin İnsan Askılık</h1>
+      <div class="motto">
+        "Reddedildikten sonra dahi yanınızdan ayrılmayan, sadakatle tasarlanmış mekanik zarafet."
+      </div>
+    </header>
+
+    <!-- Doğuş Hikayesi -->
+    <section class="card">
+      <div class="section-title">Doğuş Hikayesi (Origins)</div>
+      <p class="story-text">
+        Tüm zamanların en auratik kızına ilan-ı aşk edip nazikçe geri çevrilen bir mucidin; <em>"N'olur evinde kıyafetlerini tutan askılık olayım, bari o şekilde evinde bulunayım"</em> fikriyle hayat bulmuş tekil bir mühendislik harikasıdır. 
+        <br><br>
+        (Zeki, Çalışkan, Tatlı, Kibar, İnanılmaz Güzel, Harika ellere ve Hafıza Silen Gözlere sahip kısacası <strong>AURATİK</strong> bir Endüstri Mühendisi kızın Anamur tatili sırasındaki o unutulmaz telefon görüşmesinde temelleri atılmıştır.)
+      </p>
+    </section>
+
+    <!-- Donanım ve Teknik Özellikler -->
+    <section class="card">
+      <div class="section-title">Genel & Donanımsal Özellikler</div>
+      <div class="specs-grid">
+        <div class="spec-item">
+          <div class="spec-label">Kullanıcı Kilidi</div>
+          <div class="spec-desc">Sadece dünyada 1 adet bulunan Auratik Kız'a biyo-rezonansla duyarlı. Başkası asla kullanamaz.</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-label">Kol Kapasitesi</div>
+          <div class="spec-desc">2 bağımsız robotik kol; her biri maksimum 20 kg yük taşıma torkuna sahip.</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-label">Maksimum Yük</div>
+          <div class="spec-desc">İki kol kat kat kıyafet taşıyabilir; acil durumda auratik kızı tamamen kucaklayıp kaldırabilir.</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-label">Baş Ünitesi</div>
+          <div class="spec-desc">Çift yönlü (önlü-arkalı) şapka ve ceket kancası entegre mekanik portre.</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-label">Otonom Takip</div>
+          <div class="spec-desc">Oda içi serbest devriye; seyahat ve şehirlerarası yolculuklarda peşinden gelebilme donanımı.</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-label">Otonom Toplama & Giydirme</div>
+          <div class="spec-desc">Kıyafet odaya fırlatıldığında anında yerden alır, silkeler, kırışıklıklarını giderip üzerine asar. Oturduğunuz yerden elinizi uzatmanız teslim için yeterlidir.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Duygu Durumları (Modlar) -->
+    <section class="card">
+      <div class="section-title">Duygu Durumları & Yaşam Döngüsü</div>
+      
+      <div class="mode-item mode-romantic">
+        <div class="mode-title" style="color: #fda4af;">1. Romantik Mod</div>
+        <div class="mode-text">
+          Ağzında bazen beyaz güller, laleler; elinde ortancalar ve gelincikler bulunur. Odanın akustiğine uygun tonda romantik şiirler okumaya çalışır, zarafet ve hayranlık dolu övgüler fısıldar.
+        </div>
+      </div>
+
+      <div class="mode-item mode-funny">
+        <div class="mode-title" style="color: #7dd3fc;">2. Komik Mod</div>
+        <div class="mode-text">
+          Günün stresini unutturan ince espriler yapar, neşeli şakalar üretir ve kıyafetleri asarken hafif müzikler eşliğinde tebessüm ettirici bir enerji saçar.
+        </div>
+      </div>
+
+      <div class="mode-item mode-angry">
+        <div class="mode-title" style="color: #fdba74;">3. Sinirli Mod</div>
+        <div class="mode-text">
+          Biraz huysuz, homurdanan ve sert mizaçlı bir askılığa dönüşür. Montu sertçe tutar, yere atılan eşyalar için trip atar ama yine de kusursuz asar. 
+          <br><em>(Not: Bu modda istemsizce Kastamonu şivesine geçebilir, kullanıcı talebi olmadan bu özellik kapatılamaz.)</em>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gizlilik Beyanı -->
+    <footer class="legal-card">
+      <strong>MÜŞTERİ & TESLİMAT GİZLİLİK BEYANI</strong><br>
+      Ürünün gizli özellikleri sadece auratik kızın biyokimliği ile aktif edilebilmektedir. Teklif sadece bu kız için geçerlidir, nihai ürün teklif kabul edildikten sonra gösterilebilir.<br>
+      <span class="heart-icon">♥</span><br>
+      <small style="opacity: 0.7;">Tüm Hakları Auratik Sahibine Aittir.</small>
+    </footer>
+
+  </div>
+
 </body>
 </html>
