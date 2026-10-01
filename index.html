@@ -12,24 +12,24 @@
     }
 
     body {
-      background-color: #e5e7eb;
+      background-color: #d1d5db;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       color: #1f2937;
-      padding: 24px 12px;
+      padding: 30px 12px;
       line-height: 1.5;
     }
 
-    /* A4 Broşür Sayfası Görünümü */
+    /* Broşür Sayfası (A4 Formatı Hissi) */
     .sheet {
       background: #ffffff;
-      max-width: 900px;
-      margin: 0 auto 30px auto;
+      max-width: 920px;
+      margin: 0 auto 36px auto;
       padding: 44px 48px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
-      border: 1px solid #d1d5db;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+      border: 1px solid #c7cbd1;
     }
 
-    /* Üst Başlık */
+    /* Üst Başlıklar */
     .top-badge {
       font-size: 11px;
       font-weight: 700;
@@ -58,17 +58,16 @@
     .divider {
       height: 3px;
       background: #991b1b;
-      margin-bottom: 24px;
+      margin-bottom: 22px;
     }
 
-    /* İki Sütunlu Sayfa Düzeni */
+    /* 1. Sayfa İki Sütunlu Düzen */
     .content-grid {
       display: grid;
       grid-template-columns: 1.15fr 0.85fr;
       gap: 24px;
     }
 
-    /* Sol Sütun Kutuları */
     .box {
       border-left: 3px solid #991b1b;
       padding-left: 12px;
@@ -78,7 +77,7 @@
     .box-title {
       color: #991b1b;
       font-weight: 700;
-      font-size: 14px;
+      font-size: 13.5px;
       margin-bottom: 6px;
     }
 
@@ -89,7 +88,7 @@
       line-height: 1.6;
     }
 
-    /* Teknik Tablo */
+    /* 1. Sayfa Teknik Tablo */
     .spec-table {
       width: 100%;
       border-collapse: collapse;
@@ -124,7 +123,6 @@
       line-height: 1.45;
     }
 
-    /* Sarı Arka Planlı Alt Kutu */
     .highlight-box {
       background-color: #fffbeb;
       border-left: 3px solid #b45309;
@@ -136,7 +134,7 @@
       color: #b45309;
     }
 
-    /* Sağ Sütun Şema Çerçevesi */
+    /* Şema Çerçevesi (1. Sayfa Sağ) */
     .schema-frame {
       border: 1px solid #e5e7eb;
       background: #fafaf9;
@@ -165,9 +163,94 @@
       line-height: 1.4;
     }
 
-    /* Broşür Alt Bilgisi (Footer) */
+    /* ---------------- 2. SAYFAYA ÖZEL STİLLER ---------------- */
+    /* 3'lü Mod Kutuları */
+    .modes-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+
+    .mode-col {
+      border: 1px solid #e5e7eb;
+      padding: 14px 12px;
+      background: #ffffff;
+      border-top: 2px solid #b45309;
+    }
+
+    .mode-col-title {
+      font-weight: 700;
+      font-size: 13px;
+      color: #991b1b;
+      margin-bottom: 6px;
+    }
+
+    .mode-col-desc {
+      font-size: 11.5px;
+      color: #4b5563;
+      line-height: 1.55;
+    }
+
+    /* 2. Sayfa Görsel Galerisi */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 20px;
+      align-items: start;
+      margin-bottom: 22px;
+    }
+
+    .gallery-item {
+      border: 1px solid #e5e7eb;
+      background: #fafaf9;
+      padding: 10px;
+      border-radius: 4px;
+      text-align: center;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      border-radius: 2px;
+      display: block;
+    }
+
+    .gallery-caption {
+      font-size: 11px;
+      font-style: italic;
+      color: #6b7280;
+      margin-top: 8px;
+      line-height: 1.4;
+    }
+
+    /* Gizlilik Beyanı Kutusu */
+    .statement-box {
+      background-color: #1a222f;
+      color: #e5e7eb;
+      padding: 18px 20px;
+      border-radius: 4px;
+      margin-top: 14px;
+    }
+
+    .statement-title {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: #f59e0b;
+      margin-bottom: 6px;
+    }
+
+    .statement-text {
+      font-size: 11px;
+      color: #cbd5e1;
+      line-height: 1.6;
+    }
+
+    /* Sayfa Alt Bilgisi */
     .sheet-footer {
-      margin-top: 32px;
+      margin-top: 28px;
       padding-top: 12px;
       border-top: 1px solid #e5e7eb;
       display: flex;
@@ -177,12 +260,12 @@
       color: #6b7280;
     }
 
-    /* Mobilde düzgün alt alta geçiş */
+    /* Mobil Uyumluluk */
     @media (max-width: 768px) {
       .sheet {
-        padding: 24px 18px;
+        padding: 22px 16px;
       }
-      .content-grid {
+      .content-grid, .gallery-grid, .modes-grid {
         grid-template-columns: 1fr;
       }
       h1 {
@@ -193,18 +276,16 @@
 </head>
 <body>
 
+  <!-- ==================== 1. SAYFA ==================== -->
   <div class="sheet">
-    <!-- Üst Başlıklar -->
     <div class="top-badge">KURGUSAL KOLEKSİYON • SERİ NO: 30.09.2026</div>
     <h1>Model K37-K42: Auratik Kız İçin İnsan Askılık</h1>
     <div class="subtitle">"Reddedildikten sonra dahi yanınızdan ayrılmayan, sadakatle tasarlanmış mekanik zarafet."</div>
     <div class="divider"></div>
 
     <div class="content-grid">
-      
       <!-- Sol Taraf Metinler ve Tablo -->
       <div class="left-col">
-        
         <div class="box">
           <div class="box-title">Doğuş Hikayesi (Origins)</div>
           <div class="box-text">
@@ -248,28 +329,86 @@
             Kullanıcı odaya girip yorgunlukla ceketini veya kazağını rastgele yere fırlattığında, Model K37 K42 hassas algılayıcılarıyla kıyafeti anında yerden alır, silkeler, kırışıklıklarını giderir ve nizami şekilde üzerine asar. Oturduğunuz yerden elinizi uzatmanız giysiyi size teslim etmesi için yeterlidir.
           </div>
         </div>
-
       </div>
 
-      <!-- Sağ Taraf Görsel Alanı -->
+      <!-- Sağ Taraf: Şema Görseli (mod3.jpg) -->
       <div class="right-col">
         <div class="schema-frame">
-          <!-- Yüklediğiniz görsel adı mod3.jpg ise burada gösterilir -->
-          <img src="mod3.jpg" alt="Model K37-K42 Şeması" onerror="this.onerror=null; this.src='Ürün Tanıtım Broşürü.pdf'; this.alt='Şema Yükleniyor...';">
+          <img src="mod3.jpg" alt="Model K37-K42 Şeması">
           <div class="schema-caption">
             Şema 1.1: Human Valet H-V1 gövde şasisi, yük terazisi ve çift yönlü askı mimarisi.
           </div>
         </div>
       </div>
-
     </div>
 
-    <!-- Alt Bilgi -->
     <div class="sheet-footer">
       <div>Model H-V1 Prototype — Yalnızca Auratik Kullanıcı Erişimi</div>
       <div>Sayfa 1 / 2</div>
     </div>
+  </div>
 
+
+  <!-- ==================== 2. SAYFA ==================== -->
+  <div class="sheet">
+    <div class="top-badge">DUYGUSAL İŞLETİM SİSTEMLERİ & SAHA UYGULAMALARI</div>
+    <h1>Duygu Durumları & Dinamik Yaşam Döngüsü</h1>
+    <div class="subtitle">Tek dokunuşla kişiselleşen üç ayrı ruh hali ve eşlik eden servis yetenekleri.</div>
+    <div class="divider"></div>
+
+    <!-- 3 Sütunlu Mod Bilgileri -->
+    <div class="modes-grid">
+      <div class="mode-col">
+        <div class="mode-col-title">1. Romantik Mod</div>
+        <div class="mode-col-desc">
+          Ağzında bazen beyaz güller bazen laleler; bazen elinde ortancalar gelincikler şakayıklar bulunur. Odanın akustiğine uygun tonda romantik şiirler okumaya çalışır, günün her anında zarafet ve hayranlık dolu övgüler fısıldar.
+        </div>
+      </div>
+
+      <div class="mode-col">
+        <div class="mode-col-title">2. Komik Mod</div>
+        <div class="mode-col-desc">
+          Günün stresini unutturan ince espriler yapar, neşeli şakalar üretir ve kıyafetleri asarken hafif müzikler eşliğinde tebessüm ettirici bir enerji saçar.
+        </div>
+      </div>
+
+      <div class="mode-col">
+        <div class="mode-col-title">3. Sinirli Mod</div>
+        <div class="mode-col-desc">
+          Biraz huysuz, homurdanan ve sert mizaçlı bir askılığa dönüşür. Montu sertçe tutar, yere atılan eşyalar için trip atar ama yine de kusursuz asar. (Not: Modda istemsizce Kastamonu şivesine geçebilir, bu sorun kullanıcı talebi olmadan çözülmeyecektir.)
+        </div>
+      </div>
+    </div>
+
+    <!-- Fotoğraf Alanı: mod1.jpg ve mod2.jpg -->
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <img src="mod1.jpg" alt="Romantik Duruş">
+        <div class="gallery-caption">
+          Konsept Görünüm A: Ahşap oyma işçilikli Romantik Duruş ve gül tutuş pozisyonu.
+        </div>
+      </div>
+
+      <div class="gallery-item">
+        <img src="mod2.jpg" alt="Otonom Operasyon">
+        <div class="gallery-caption">
+          Konsept Görünüm B: Mobil tekerlekli şasiyle otonom giysi toplama operasyonu.
+        </div>
+      </div>
+    </div>
+
+    <!-- Gizlilik Beyanı -->
+    <div class="statement-box">
+      <div class="statement-title">MÜŞTERİ & TESLİMAT GİZLİLİK BEYANI</div>
+      <div class="statement-text">
+        * Ürünün gizli özellikleri sadece auratik kızın biyokimliği ile aktif edilebilmektedir, teklif sadece bu kız için geçerlidir, nihai ürün teklif kabul edildikten sonra gösterilebilir. Fotoğraflar yapay zeka ile oluşturulmuş konsept tasarımlardır.
+      </div>
+    </div>
+
+    <div class="sheet-footer">
+      <div>Gizli Kurgusal Prototip Kataloğu — Tüm Hakları Auratik Sahibine Aittir</div>
+      <div>Sayfa 2 / 2</div>
+    </div>
   </div>
 
 </body>
