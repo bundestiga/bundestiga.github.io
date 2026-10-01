@@ -1,26 +1,542 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <link rel="icon" type="image/jpg" href="favicon.jpg">
   <meta charset="UTF-8">
+  <link rel="icon" type="image/jpg" href="favicon.jpg">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Model K37-K42: Auratik Kız İçin İnsan Askılık</title>
+  <title>Özel Alan | Model K37-K42 & Öpüşme Sayacı</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+
   <style>
+    :root {
+      --bg-cream: #f4eee1;
+      --bg-warm: #ece4d0;
+      --circle-normal-inner: #e2d6b5;
+      --circle-normal-mid: #f0e6cd;
+      --circle-normal-outer: #f9f5ea;
+      
+      --circle-alarm-inner: #ea5d71;
+      --circle-alarm-mid: rgba(234, 93, 113, 0.45);
+      --circle-alarm-outer: rgba(234, 93, 113, 0.18);
+
+      --btn-bg: #eadecb;
+      --btn-active-bg: #ffffff;
+      --text-dark: #37352f;
+      --text-muted: #797670;
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      user-select: none;
     }
 
     body {
-      background-color: #d1d5db;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      color: #1f2937;
-      padding: 30px 12px;
-      line-height: 1.5;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-cream);
+      color: var(--text-dark);
+      min-height: 100vh;
+      overflow-x: hidden;
     }
 
-    /* Broşür Sayfası (A4 Formatı Hissi) */
+    /* ================= SOL AÇILIR MENÜ (DRAWER) ================= */
+    .menu-trigger {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      transition: all 0.25s ease;
+    }
+
+    .menu-trigger:hover {
+      background: #ffffff;
+      transform: scale(1.04);
+    }
+
+    .menu-trigger span {
+      width: 20px;
+      height: 2px;
+      background: #4a453e;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    .sidebar-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(2px);
+      z-index: 998;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .sidebar-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -290px;
+      width: 280px;
+      height: 100%;
+      background: #faf7f2;
+      z-index: 999;
+      box-shadow: 10px 0 30px rgba(0, 0, 0, 0.1);
+      transition: left 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+      padding: 30px 22px;
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid #ebd9c8;
+    }
+
+    .sidebar.active {
+      left: 0;
+    }
+
+    .sidebar-title {
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: #928b80;
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #ece4d8;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      border-radius: 12px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      color: #555048;
+      transition: all 0.2s ease;
+    }
+
+    .nav-item:hover {
+      background: #efe7d9;
+      color: #1f1d1a;
+    }
+
+    .nav-item.active {
+      background: #e2d3be;
+      color: #1f1d1a;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.04);
+    }
+
+    /* GÖRÜNÜM GEÇİŞİ */
+    .view-section {
+      display: none;
+      animation: fadeIn 0.35s ease forwards;
+    }
+
+    .view-section.active-view {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ================= EKRAN 1: ÖPÜŞME SAYACI GÖRÜNÜMÜ ================= */
+    .counter-screen {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 40px 16px 60px;
+      background: radial-gradient(circle at center, #fbf7ee 0%, #ebe2ce 100%);
+      position: relative;
+    }
+
+    .counter-header-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: #3b3731;
+      margin-bottom: 28px;
+      letter-spacing: -0.5px;
+    }
+
+    /* Mod Seçim Butonları */
+    .modes-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: rgba(226, 214, 191, 0.45);
+      padding: 6px;
+      border-radius: 40px;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+      margin-bottom: 50px;
+    }
+
+    .mode-pill-btn {
+      border: none;
+      outline: none;
+      background: var(--btn-bg);
+      padding: 10px 24px;
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #555048;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+      transition: all 0.25s ease;
+      position: relative;
+    }
+
+    .mode-pill-btn:hover {
+      background: #f0e6d6;
+      transform: translateY(-1px);
+    }
+
+    .mode-pill-btn.selected {
+      background: #ffffff;
+      color: #1f1d1a;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+      border: 1.5px solid #ea5d71;
+    }
+
+    /* Tooltip / Açıklama Baloncuğu */
+    .tooltip-bubble {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%) translateY(10px);
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid #ebd9c8;
+      padding: 8px 14px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 500;
+      color: #635e55;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      z-index: 10;
+    }
+
+    .tooltip-bubble.visible {
+      opacity: 1;
+      transform: translateX(-50%) translateY(14px);
+    }
+
+    /* EŞMERKEZLİ DAİRELER (CONCENTRIC CIRCLES) */
+    .circles-wrapper {
+      position: relative;
+      width: 380px;
+      height: 380px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 10px 0 40px;
+    }
+
+    .concentric-circle {
+      position: absolute;
+      border-radius: 50%;
+      transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Dış Halka */
+    .circle-outer {
+      width: 370px;
+      height: 370px;
+      background: var(--circle-normal-outer);
+      border: 1.5px solid rgba(255, 255, 255, 0.8);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+    }
+
+    /* Orta Halka */
+    .circle-mid {
+      width: 290px;
+      height: 290px;
+      background: var(--circle-normal-mid);
+      border: 1.5px solid rgba(255, 255, 255, 0.9);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+    }
+
+    /* İç Halka (Merkez) */
+    .circle-inner {
+      width: 210px;
+      height: 210px;
+      background: var(--circle-normal-inner);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06), inset 0 2px 6px rgba(255,255,255,0.7);
+      border: 2px solid rgba(255, 255, 255, 0.95);
+      z-index: 2;
+    }
+
+    .counter-value {
+      font-size: 60px;
+      font-weight: 800;
+      line-height: 1;
+      color: #ffffff;
+      letter-spacing: -1px;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.12);
+      transition: color 0.5s ease;
+    }
+
+    .counter-unit {
+      font-size: 17px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.92);
+      margin-top: 6px;
+    }
+
+    /* ALARM / EŞİK AŞILDI DURUMU (KIRMIZI / PULSE) */
+    .circles-wrapper.alarm .circle-outer {
+      background: var(--circle-alarm-outer);
+      border-color: rgba(234, 93, 113, 0.4);
+      animation: pulseOuter 2.2s infinite ease-in-out;
+    }
+
+    .circles-wrapper.alarm .circle-mid {
+      background: var(--circle-alarm-mid);
+      border-color: rgba(234, 93, 113, 0.6);
+      animation: pulseMid 2.2s infinite ease-in-out;
+    }
+
+    .circles-wrapper.alarm .circle-inner {
+      background: var(--circle-alarm-inner);
+      box-shadow: 0 12px 35px rgba(234, 93, 113, 0.4), inset 0 2px 10px rgba(255,255,255,0.4);
+      animation: pulseInner 2.2s infinite ease-in-out;
+    }
+
+    @keyframes pulseOuter {
+      0%, 100% { transform: scale(1); opacity: 0.7; }
+      50% { transform: scale(1.05); opacity: 1; }
+    }
+    @keyframes pulseMid {
+      0%, 100% { transform: scale(1); opacity: 0.85; }
+      50% { transform: scale(1.04); opacity: 1; }
+    }
+    @keyframes pulseInner {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+    }
+
+    /* KONTROL BUTONLARI & SAAT AYARI */
+    .actions-panel {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      width: 100%;
+      max-width: 360px;
+    }
+
+    .btn-kiss-reset {
+      width: 100%;
+      border: none;
+      outline: none;
+      background: #ea5d71;
+      color: #ffffff;
+      padding: 14px 28px;
+      border-radius: 16px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 6px 18px rgba(234, 93, 113, 0.35);
+      transition: all 0.2s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-kiss-reset:hover {
+      background: #e2495f;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px rgba(234, 93, 113, 0.45);
+    }
+
+    .secondary-controls {
+      display: flex;
+      gap: 10px;
+      width: 100%;
+    }
+
+    .btn-sub {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid #dfd3bf;
+      padding: 10px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #5d574d;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-sub:hover {
+      background: #ffffff;
+      color: #1f1d1a;
+    }
+
+    /* Başlangıç Tarihi Düzenleme Çekmecesi */
+    .date-editor-card {
+      background: #ffffff;
+      padding: 16px;
+      border-radius: 14px;
+      border: 1px solid #ebd9c8;
+      width: 100%;
+      margin-top: 10px;
+      display: none;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+
+    .date-editor-card.open {
+      display: block;
+    }
+
+    .date-input-group {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .date-input-group input {
+      flex: 1;
+      padding: 8px 10px;
+      border: 1px solid #d5c8b4;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 12px;
+    }
+
+    .date-input-group button {
+      background: #37352f;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    /* DELİ MOD POP-UP / MODAL (GÖRSELDEKİ GİBİ ŞIK) */
+    .modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.25);
+      backdrop-filter: blur(2px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
+    .modal-backdrop.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .popup-box {
+      background: #faf4e8;
+      border: 1.5px solid #eddcca;
+      border-radius: 20px;
+      padding: 24px;
+      width: 90%;
+      max-width: 320px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+      text-align: center;
+      transform: scale(0.92);
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .modal-backdrop.show .popup-box {
+      transform: scale(1);
+    }
+
+    .popup-text {
+      font-size: 14px;
+      font-weight: 600;
+      color: #3b3731;
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+
+    .popup-buttons {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+    }
+
+    .popup-btn-yes {
+      flex: 1;
+      border: none;
+      background: #ea5d71;
+      color: white;
+      padding: 10px 16px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(234, 93, 113, 0.3);
+    }
+
+    .popup-btn-no {
+      flex: 1;
+      border: 1px solid #d5c8b4;
+      background: #fff;
+      color: #555048;
+      padding: 10px 16px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    /* ================= EKRAN 2: ASKILIK KATALOĞU (ORİJİNAL) ================= */
+    .catalog-screen {
+      padding: 40px 12px 60px;
+      background-color: #d1d5db;
+    }
+
     .sheet {
       background: #ffffff;
       max-width: 920px;
@@ -30,7 +546,6 @@
       border: 1px solid #c7cbd1;
     }
 
-    /* Üst Başlıklar */
     .top-badge {
       font-size: 11px;
       font-weight: 700;
@@ -40,7 +555,7 @@
       margin-bottom: 6px;
     }
 
-    h1 {
+    .sheet h1 {
       font-family: Georgia, serif;
       font-size: 28px;
       color: #111827;
@@ -62,7 +577,6 @@
       margin-bottom: 22px;
     }
 
-    /* 1. Sayfa İki Sütunlu Düzen */
     .content-grid {
       display: grid;
       grid-template-columns: 1.15fr 0.85fr;
@@ -89,7 +603,6 @@
       line-height: 1.6;
     }
 
-    /* 1. Sayfa Teknik Tablo */
     .spec-table {
       width: 100%;
       border-collapse: collapse;
@@ -135,15 +648,11 @@
       color: #b45309;
     }
 
-    /* Şema Çerçevesi (1. Sayfa Sağ) */
     .schema-frame {
       border: 1px solid #e5e7eb;
       background: #fafaf9;
       padding: 12px;
       border-radius: 4px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
       text-align: center;
     }
 
@@ -164,8 +673,6 @@
       line-height: 1.4;
     }
 
-    /* ---------------- 2. SAYFAYA ÖZEL STİLLER ---------------- */
-    /* 3'lü Mod Kutuları */
     .modes-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -193,7 +700,6 @@
       line-height: 1.55;
     }
 
-    /* 2. Sayfa Görsel Galerisi */
     .gallery-grid {
       display: grid;
       grid-template-columns: 0.95fr 1.05fr;
@@ -226,7 +732,6 @@
       line-height: 1.4;
     }
 
-    /* Gizlilik Beyanı Kutusu */
     .statement-box {
       background-color: #1a222f;
       color: #e5e7eb;
@@ -249,7 +754,6 @@
       line-height: 1.6;
     }
 
-    /* Sayfa Alt Bilgisi */
     .sheet-footer {
       margin-top: 28px;
       padding-top: 12px;
@@ -261,156 +765,425 @@
       color: #6b7280;
     }
 
-    /* Mobil Uyumluluk */
     @media (max-width: 768px) {
-      .sheet {
-        padding: 22px 16px;
+      .circles-wrapper {
+        width: 320px;
+        height: 320px;
       }
-      .content-grid, .gallery-grid, .modes-grid {
-        grid-template-columns: 1fr;
-      }
-      h1 {
-        font-size: 22px;
-      }
+      .circle-outer { width: 310px; height: 310px; }
+      .circle-mid { width: 240px; height: 240px; }
+      .circle-inner { width: 170px; height: 170px; }
+      .counter-value { font-size: 48px; }
+      .sheet { padding: 22px 16px; }
+      .content-grid, .gallery-grid, .modes-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ==================== 1. SAYFA ==================== -->
-  <div class="sheet">
-    <div class="top-badge">KURGUSAL KOLEKSİYON • SERİ NO: 30.09.2026</div>
-    <h1>Model K37-K42: Auratik Kız İçin İnsan Askılık</h1>
-    <div class="subtitle">"Reddedildikten sonra dahi yanınızdan ayrılmayan, sadakatle tasarlanmış mekanik zarafet."</div>
-    <div class="divider"></div>
+  <!-- SOL MENÜ TETİKLEYİCİSİ (3 ÇİZGİ HAMBURGER) -->
+  <div class="menu-trigger" id="menuToggle" title="Menü">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
 
-    <div class="content-grid">
-      <!-- Sol Taraf Metinler ve Tablo -->
-      <div class="left-col">
-        <div class="box">
-          <div class="box-title">Doğuş Hikayesi (Origins)</div>
-          <div class="box-text">
-            Tüm zamanların en ve tek auratik kızına ilan-ı aşk edip nazikçe geri çevrilen bir aşığın; <em>"Nolur evinde kıyafetlerini tutan askılık olayım, bari o şekilde evinde olayım"</em> fikriyle hayat bulmuş tekil bir mühendislik harikasıdır. (Zeki, Çalışkan, Tatlı, Kibar, İnanılmaz Güzel, Harika elleri, İnanılmaz Gözleri, Hafıza Silen Gözleri olan kısacası AURATİK bir Endüstri mühendisi kızın Anamur tatili sırasında gerçekleşen telefon görüşmesinde temelleri atılmıştır.
-          </div>
-        </div>
+  <!-- KARARTMA ARKA PLANI -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-        <table class="spec-table">
-          <thead>
-            <tr>
-              <th colspan="2">Genel & Donanımsal Özellikler</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="label">Kullanıcı Kilidi</td>
-              <td class="desc">Sadece dünyada 1 adet bulunan Auratik Kız'a biyo-rezonansla duyarlı. Başkası asla kullanamaz.</td>
-            </tr>
-            <tr>
-              <td class="label">Kol Kapasitesi</td>
-              <td class="desc">2 bağımsız robotik kol; her biri maksimum <strong>20 kg</strong> yük taşıma torkuna sahip.</td>
-            </tr>
-            <tr>
-              <td class="label">Maksimum Yük</td>
-              <td class="desc">İki kol kat kat kıyafet taşıyabilir; acil durumda auratik kızı tamamen kucaklayıp kaldırabilir.</td>
-            </tr>
-            <tr>
-              <td class="label">Baş Ünitesi</td>
-              <td class="desc">Çift yönlü (önlü-arkalı) şapka ve ceket kancası entegre mekanik portre.</td>
-            </tr>
-            <tr>
-              <td class="label">Otonom Takip</td>
-              <td class="desc">Oda içi serbest devriye; seyahat ve şehirlerarası yolculuklarda peşinden gelebilme donanımı.</td>
-            </tr>
-          </tbody>
-        </table>
+  <!-- SOL ÇEKMECE MENÜSÜ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-title">Gezinti Menüsü</div>
+    <div class="nav-item active" data-target="counterScreen">
+      <span>💋</span> Öpüşme Sayacı
+    </div>
+    <div class="nav-item" data-target="catalogScreen">
+      <span>🧥</span> Askılık Kataloğu
+    </div>
+  </aside>
 
-        <div class="highlight-box">
-          <div class="box-title">Otonom Toplama & Giydirme Asistanı</div>
-          <div class="box-text">
-            Auratik kız odaya girip yorgunlukla ceketini veya kazağını rastgele yere fırlattığında, Model K37 K42 hassas algılayıcılarıyla kıyafeti anında yerden alır, silkeler, kırışıklıklarını giderir ve nizami şekilde üzerine asar. Oturduğunuz yerden elinizi uzatmanız giysiyi size teslim etmesi için yeterlidir.
-          </div>
+  <!-- ================= 1. GÖRÜNÜM: ÖPÜŞME SAYACI ================= -->
+  <main class="view-section active-view" id="counterScreen">
+    <div class="counter-screen">
+      <h2 class="counter-header-title">Öpüşme Sayacı</h2>
+
+      <!-- Mod Seçim Butonları -->
+      <div class="modes-container">
+        <button class="mode-pill-btn" data-mode="normal" id="btnNormal">Normal</button>
+        <button class="mode-pill-btn selected" data-mode="hiiy" id="btnHiiy">Hiiy Mod</button>
+        <button class="mode-pill-btn" data-mode="deli" id="btnDeli">Deli Mod</button>
+
+        <!-- Tooltip Baloncuğu -->
+        <div class="tooltip-bubble" id="modeTooltip">Öpülmediğinde telaşlı bir şekilde sizi öpecektir</div>
+      </div>
+
+      <!-- Eşmerkezli Daireler -->
+      <div class="circles-wrapper" id="circlesWrapper">
+        <div class="concentric-circle circle-outer"></div>
+        <div class="concentric-circle circle-mid"></div>
+        <div class="concentric-circle circle-inner">
+          <div class="counter-value" id="minutesDisplay">0</div>
+          <div class="counter-unit">Dakika</div>
         </div>
       </div>
 
-      <!-- Sağ Taraf: Şema Görseli (mod3.jpg) -->
-      <div class="right-col">
-        <div class="schema-frame">
-          <img src="mod3.jpg" alt="Model K37-K42 Şeması">
-          <div class="schema-caption">
-            Şema 1.1: Human Valet H-V1 gövde şasisi, yük terazisi ve çift yönlü askı mimarisi.
+      <!-- Kontroller -->
+      <div class="actions-panel">
+        <button class="btn-kiss-reset" id="btnKissReset">
+          <span>💋</span> Öpüldük / Sıfırla
+        </button>
+
+        <div class="secondary-controls">
+          <button class="btn-sub" id="btnToggleNotify">🔔 Bildirimleri Aç</button>
+          <button class="btn-sub" id="btnToggleDateEditor">⚙️ Başlangıç Ayarla</button>
+        </div>
+
+        <!-- Başlangıç Zamanı Belirleme Kutucuğu -->
+        <div class="date-editor-card" id="dateEditorCard">
+          <div style="font-size: 11px; font-weight: 600; color: #777;">Öpüşme Zamanı Değiştir:</div>
+          <div class="date-input-group">
+            <input type="datetime-local" id="customDatetimeInput">
+            <button id="btnSaveCustomDate">Kaydet</button>
           </div>
         </div>
       </div>
     </div>
+  </main>
 
-    <div class="sheet-footer">
-      <div>Model H-V1 Prototype — Yalnızca Auratik Kullanıcı Erişimi</div>
-      <div>Sayfa 1 / 2</div>
+  <!-- DELİ MOD ONAY POPUP'I (MODAL) -->
+  <div class="modal-backdrop" id="deliModal">
+    <div class="popup-box">
+      <div class="popup-text">
+        Günah benden gitti!<br>Kabul ediyor musunuz?
+      </div>
+      <div class="popup-buttons">
+        <button class="popup-btn-yes" id="btnDeliConfirm">Evet</button>
+        <button class="popup-btn-no" id="btnDeliCancel">Hayır</button>
+      </div>
     </div>
   </div>
 
+  <!-- ================= 2. GÖRÜNÜM: ASKILIK KATALOĞU ================= -->
+  <main class="view-section" id="catalogScreen">
+    <div class="catalog-screen">
+      <!-- Broşür 1. Sayfa -->
+      <div class="sheet">
+        <div class="top-badge">KURGUSAL KOLEKSİYON • SERİ NO: 30.09.2026</div>
+        <h1>Model K37-K42: Auratik Kız İçin İnsan Askılık</h1>
+        <div class="subtitle">"Reddedildikten sonra dahi yanınızdan ayrılmayan, sadakatle tasarlanmış mekanik zarafet."</div>
+        <div class="divider"></div>
 
-  <!-- ==================== 2. SAYFA ==================== -->
-  <div class="sheet">
-    <div class="top-badge">DUYGUSAL İŞLETİM SİSTEMLERİ & SAHA UYGULAMALARI</div>
-    <h1>Duygu Durumları & Dinamik Yaşam Döngüsü</h1>
-    <div class="subtitle">Tek dokunuşla kişiselleşen üç ayrı ruh hali ve eşlik eden servis yetenekleri.</div>
-    <div class="divider"></div>
+        <div class="content-grid">
+          <div class="left-col">
+            <div class="box">
+              <div class="box-title">Doğuş Hikayesi (Origins)</div>
+              <div class="box-text">
+                Tüm zamanların en auratik kızına ilan-ı aşk edip nazikçe geri çevrilen bir mucidin; <em>"Nolur evinde kıyafetlerini tutan askılık olayım, bari o şekilde evinde olayım"</em> fikriyle hayat bulmuş tekil bir mühendislik harikasıdır. (Zeki, Çalışkan, Tatlı, Kibar, İnanılmaz Güzel, Harika elleri, İnanılmaz Gözleri, Hafıza Silen Gözleri olan kısacası AURATİK bir Endüstri mühendisi kızın Anamur tatili sırasında gerçekleşen telefon görüşmesinde temelleri atılmıştır.
+              </div>
+            </div>
 
-    <!-- 3 Sütunlu Mod Bilgileri -->
-    <div class="modes-grid">
-      <div class="mode-col">
-        <div class="mode-col-title">1. Romantik Mod</div>
-        <div class="mode-col-desc">
-          Ağzında bazen beyaz güller bazen laleler; bazen elinde ortancalar gelincikler şakayıklar bulunur. Odanın akustiğine uygun tonda romantik şiirler okumaya çalışır, günün her anında zarafet ve hayranlık dolu övgüler fısıldar.
+            <table class="spec-table">
+              <thead>
+                <tr><th colspan="2">Genel & Donanımsal Özellikler</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="label">Kullanıcı Kilidi</td>
+                  <td class="desc">Sadece dünyada 1 adet bulunan Auratik Kız'a biyo-rezonansla duyarlı. Başkası asla kullanamaz.</td>
+                </tr>
+                <tr>
+                  <td class="label">Kol Kapasitesi</td>
+                  <td class="desc">2 bağımsız robotik kol; her biri maksimum <strong>20 kg</strong> yük taşıma torkuna sahip.</td>
+                </tr>
+                <tr>
+                  <td class="label">Maksimum Yük</td>
+                  <td class="desc">İki kol kat kat kıyafet taşıyabilir; acil durumda auratik kızı tamamen kucaklayıp kaldırabilir.</td>
+                </tr>
+                <tr>
+                  <td class="label">Baş Ünitesi</td>
+                  <td class="desc">Çift yönlü (önlü-arkalı) şapka ve ceket kancası entegre mekanik portre.</td>
+                </tr>
+                <tr>
+                  <td class="label">Otonom Takip</td>
+                  <td class="desc">Oda içi serbest devriye; seyahat ve şehirlerarası yolculuklarda peşinden gelebilme donanımı.</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="highlight-box">
+              <div class="box-title">Otonom Toplama & Giydirme Asistanı</div>
+              <div class="box-text">
+                Kullanıcı odaya girip yorgunlukla ceketini veya kazağını rastgele yere fırlattığında, Model K37 K42 hassas algılayıcılarıyla kıyafeti anında yerden alır, silkeler, kırışıklıklarını giderir ve nizami şekilde üzerine asar. Oturduğunuz yerden elinizi uzatmanız giysiyi size teslim etmesi için yeterlidir.
+              </div>
+            </div>
+          </div>
+
+          <div class="right-col">
+            <div class="schema-frame">
+              <img src="mod3.jpg" alt="Model K37-K42 Şeması">
+              <div class="schema-caption">
+                Şema 1.1: Human Valet H-V1 gövde şasisi, yük terazisi ve çift yönlü askı mimarisi.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sheet-footer">
+          <div>Model H-V1 Prototype — Yalnızca Auratik Kullanıcı Erişimi</div>
+          <div>Sayfa 1 / 2</div>
         </div>
       </div>
 
-      <div class="mode-col">
-        <div class="mode-col-title">2. Komik Mod</div>
-        <div class="mode-col-desc">
-          Günün stresini unutturan ince espriler yapar, neşeli şakalar üretir ve kıyafetleri asarken hafif müzikler eşliğinde tebessüm ettirici bir enerji saçar.
-        </div>
-      </div>
+      <!-- Broşür 2. Sayfa -->
+      <div class="sheet">
+        <div class="top-badge">DUYGUSAL İŞLETİM SİSTEMLERİ & SAHA UYGULAMALARI</div>
+        <h1>Duygu Durumları & Dinamik Yaşam Döngüsü</h1>
+        <div class="subtitle">Tek dokunuşla kişiselleşen üç ayrı ruh hali ve eşlik eden servis yetenekleri.</div>
+        <div class="divider"></div>
 
-      <div class="mode-col">
-        <div class="mode-col-title">3. Sinirli Mod</div>
-        <div class="mode-col-desc">
-          Biraz huysuz, homurdanan ve sert mizaçlı bir askılığa dönüşür. Montu sertçe tutar, yere atılan eşyalar için trip atar ama yine de kusursuz asar. (Not: Modda istemsizce Kastamonu şivesine geçebilir, bu sorun kullanıcı talebi olmadan çözülmeyecektir.)
+        <div class="modes-grid">
+          <div class="mode-col">
+            <div class="mode-col-title">1. Romantik Mod</div>
+            <div class="mode-col-desc">
+              Ağzında bazen beyaz güller bazen laleler; bazen elinde ortancalar gelincikler şakayıklar bulunur. Odanın akustiğine uygun tonda romantik şiirler okumaya çalışır, günün her anında zarafet ve hayranlık dolu övgüler fısıldar.
+            </div>
+          </div>
+          <div class="mode-col">
+            <div class="mode-col-title">2. Komik Mod</div>
+            <div class="mode-col-desc">
+              Günün stresini unutturan ince espriler yapar, neşeli şakalar üretir ve kıyafetleri asarken hafif müzikler eşliğinde tebessüm ettirici bir enerji saçar.
+            </div>
+          </div>
+          <div class="mode-col">
+            <div class="mode-col-title">3. Sinirli Mod</div>
+            <div class="mode-col-desc">
+              Biraz huysuz, homurdanan ve sert mizaçlı bir askılığa dönüşür. Montu sertçe tutar, yere atılan eşyalar için trip atar ama yine de kusursuz asar. (Not: Modda istemsizce Kastamonu şivesine geçebilir, bu sorun kullanıcı talebi olmadan çözülmeyecektir.)
+            </div>
+          </div>
+        </div>
+
+        <div class="gallery-grid">
+          <div class="gallery-item">
+            <img src="mod1.jpg" alt="Romantik Duruş">
+            <div class="gallery-caption">Konsept Görünüm A: Ahşap oyma işçilikli Romantik Duruş ve gül tutuş pozisyonu.</div>
+          </div>
+          <div class="gallery-item">
+            <img src="mod2.jpg" alt="Otonom Operasyon">
+            <div class="gallery-caption">Konsept Görünüm B: Mobil tekerlekli şasiyle otonom giysi toplama operasyonu.</div>
+          </div>
+        </div>
+
+        <div class="statement-box">
+          <div class="statement-title">MÜŞTERİ & TESLİMAT GİZLİLİK BEYANI</div>
+          <div class="statement-text">
+            * Ürünün gizli özellikleri sadece auratik kızın biyokimliği ile aktif edilebilmektedir, teklif sadece bu kız için geçerlidir, nihai ürün teklif kabul edildikten sonra gösterilebilir. Fotoğraflar yapay zeka ile oluşturulmuş konsept tasarımlardır.
+          </div>
+        </div>
+
+        <div class="sheet-footer">
+          <div>Gizli Kurgusal Prototip Kataloğu — Tüm Hakları Auratik Sahibine Aittir</div>
+          <div>Sayfa 2 / 2</div>
         </div>
       </div>
     </div>
+  </main>
 
-    <!-- Fotoğraf Alanı: mod1.jpg ve mod2.jpg -->
-    <div class="gallery-grid">
-      <div class="gallery-item">
-        <img src="mod1.jpg" alt="Romantik Duruş">
-        <div class="gallery-caption">
-          Konsept Görünüm A: Ahşap oyma işçilikli Romantik Duruş ve gül tutuş pozisyonu.
-        </div>
-      </div>
+  <!-- JAVASCRIPT MOTORU (VANILLA JS) -->
+  <script>
+    // 1. SOL MENÜ VE EKRAN GEÇİŞLERİ
+    const menuToggle = document.getElementById('menuToggle');
+    const sidebar = document.getElementById('sidebar');
+    const sidebarOverlay = document.getElementById('sidebarOverlay');
+    const navItems = document.querySelectorAll('.nav-item');
+    const viewSections = document.querySelectorAll('.view-section');
 
-      <div class="gallery-item">
-        <img src="mod2.jpg" alt="Otonom Operasyon">
-        <div class="gallery-caption">
-          Konsept Görünüm B: Mobil tekerlekli şasiyle otonom giysi toplama operasyonu.
-        </div>
-      </div>
-    </div>
+    function toggleSidebar(open) {
+      if (open) {
+        sidebar.classList.add('active');
+        sidebarOverlay.classList.add('active');
+      } else {
+        sidebar.classList.remove('active');
+        sidebarOverlay.classList.remove('active');
+      }
+    }
 
-    <!-- Gizlilik Beyanı -->
-    <div class="statement-box">
-      <div class="statement-title">MÜŞTERİ & TESLİMAT GİZLİLİK BEYANI</div>
-      <div class="statement-text">
-        * Ürünün gizli özellikleri sadece auratik kızın biyokimliği ile aktif edilebilmektedir, teklif sadece bu kız için geçerlidir, nihai ürün teklif kabul edildikten sonra gösterilebilir. Fotoğraflar yapay zeka ile oluşturulmuş konsept tasarımlardır.
-      </div>
-    </div>
+    menuToggle.addEventListener('click', () => toggleSidebar(true));
+    sidebarOverlay.addEventListener('click', () => toggleSidebar(false));
 
-    <div class="sheet-footer">
-      <div>Gizli Kurgusal Prototip Kataloğu — Tüm Hakları Auratik Sahibine Aittir</div>
-      <div>Sayfa 2 / 2</div>
-    </div>
-  </div>
+    navItems.forEach(item => {
+      item.addEventListener('click', () => {
+        const targetViewId = item.getAttribute('data-target');
+        navItems.forEach(n => n.classList.remove('active'));
+        item.classList.add('active');
 
+        viewSections.forEach(sec => {
+          sec.classList.remove('active-view');
+          if (sec.id === targetViewId) sec.classList.add('active-view');
+        });
+
+        toggleSidebar(false);
+      });
+    });
+
+    // 2. MODLAR, EŞİKLER VE TOOLTIP VERİLERİ
+    const MODES = {
+      normal: { threshold: 500, desc: "Normal bir seviyedir" },
+      hiiy: { threshold: 300, desc: "Öpülmediğinde telaşlı bir şekilde sizi öpecektir" },
+      deli: { threshold: 200, desc: "Günah benden gitti! Tehlikeli seviye." }
+    };
+
+    let currentMode = localStorage.getItem('selected_kiss_mode') || 'hiiy';
+    let lastKissTime = parseInt(localStorage.getItem('last_kiss_timestamp'), 10);
+
+    // Eğer daha önce kaydedilmiş bir öpüşme tarihi yoksa şu anı baz al
+    if (!lastKissTime) {
+      lastKissTime = Date.now();
+      localStorage.setItem('last_kiss_timestamp', lastKissTime);
+    }
+
+    const minutesDisplay = document.getElementById('minutesDisplay');
+    const circlesWrapper = document.getElementById('circlesWrapper');
+    const modeTooltip = document.getElementById('modeTooltip');
+    const modeButtons = document.querySelectorAll('.mode-pill-btn');
+    const deliModal = document.getElementById('deliModal');
+    let notificationSentForCurrentPeriod = false;
+
+    // Mod Butonu Güncelleme
+    function setMode(modeKey) {
+      currentMode = modeKey;
+      localStorage.setItem('selected_kiss_mode', modeKey);
+      
+      modeButtons.forEach(btn => {
+        btn.classList.toggle('selected', btn.getAttribute('data-mode') === modeKey);
+      });
+
+      modeTooltip.textContent = MODES[modeKey].desc;
+      modeTooltip.classList.add('visible');
+      setTimeout(() => modeTooltip.classList.remove('visible'), 3200);
+
+      updateCounterState();
+    }
+
+    // Buton Dinleyicileri
+    modeButtons.forEach(btn => {
+      const modeKey = btn.getAttribute('data-mode');
+
+      // Üzerine gelince (hover) açıklama gösterme
+      btn.addEventListener('mouseenter', () => {
+        modeTooltip.textContent = MODES[modeKey].desc;
+        modeTooltip.classList.add('visible');
+      });
+      btn.addEventListener('mouseleave', () => {
+        modeTooltip.classList.remove('visible');
+      });
+
+      // Tıklama davranışı
+      btn.addEventListener('click', () => {
+        if (modeKey === 'deli') {
+          deliModal.classList.add('show');
+        } else {
+          setMode(modeKey);
+        }
+      });
+    });
+
+    // Deli Mod Pop-up Butonları
+    document.getElementById('btnDeliConfirm').addEventListener('click', () => {
+      deliModal.classList.remove('show');
+      setMode('deli');
+    });
+
+    document.getElementById('btnDeliCancel').addEventListener('click', () => {
+      deliModal.classList.remove('show');
+    });
+
+    // 3. SAYAÇ VE ALARM MANTIĞI
+    function updateCounterState() {
+      const now = Date.now();
+      const diffMinutes = Math.max(0, Math.floor((now - lastKissTime) / 60000));
+      minutesDisplay.textContent = diffMinutes;
+
+      const threshold = MODES[currentMode].threshold;
+
+      if (diffMinutes >= threshold) {
+        circlesWrapper.classList.add('alarm');
+        // Eşik aşıldığında bildirim gönder
+        if (!notificationSentForCurrentPeriod) {
+          sendPushNotification();
+          notificationSentForCurrentPeriod = true;
+        }
+      } else {
+        circlesWrapper.classList.remove('alarm');
+        notificationSentForCurrentPeriod = false;
+      }
+    }
+
+    // Her saniye kontrol et
+    setInterval(updateCounterState, 1000);
+
+    // 4. "ÖPÜLDÜK / SIFIRLA" BUTONU
+    document.getElementById('btnKissReset').addEventListener('click', () => {
+      lastKissTime = Date.now();
+      localStorage.setItem('last_kiss_timestamp', lastKissTime);
+      notificationSentForCurrentPeriod = false;
+      updateCounterState();
+    });
+
+    // 5. BAŞLANGIÇ TARİHİ DEĞİŞTİRME PANELİ
+    const dateEditorCard = document.getElementById('dateEditorCard');
+    const customDatetimeInput = document.getElementById('customDatetimeInput');
+
+    document.getElementById('btnToggleDateEditor').addEventListener('click', () => {
+      dateEditorCard.classList.toggle('open');
+      if (dateEditorCard.classList.contains('open')) {
+        const d = new Date(lastKissTime);
+        d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
+        customDatetimeInput.value = d.toISOString().slice(0, 16);
+      }
+    });
+
+    document.getElementById('btnSaveCustomDate').addEventListener('click', () => {
+      const selectedValue = customDatetimeInput.value;
+      if (selectedValue) {
+        lastKissTime = new Date(selectedValue).getTime();
+        localStorage.setItem('last_kiss_timestamp', lastKissTime);
+        notificationSentForCurrentPeriod = false;
+        updateCounterState();
+        dateEditorCard.classList.remove('open');
+      }
+    });
+
+    // 6. TARAYICI BİLDİRİMİ (NOTIFICATION API)
+    const btnToggleNotify = document.getElementById('btnToggleNotify');
+
+    btnToggleNotify.addEventListener('click', () => {
+      if (!("Notification" in window)) {
+        alert("Tarayıcınız bildirim özelliğini desteklemiyor.");
+        return;
+      }
+      Notification.requestPermission().then(permission => {
+        if (permission === "granted") {
+          btnToggleNotify.textContent = "🔔 Bildirimler Açık";
+          new Notification("Öpüşme Sayacı", {
+            body: "Bildirimler başarıyla açıldı! Eşik aşıldığında haber vereceğiz.",
+            icon: "favicon.png"
+          });
+        }
+      });
+    });
+
+    function sendPushNotification() {
+      if ("Notification" in window && Notification.permission === "granted") {
+        new Notification("Dikkat! Eşik Aşıldı 💋", {
+          body: "Belirlenen öpüşmeme süresi aşıldı! Acilen öpüşme gerekiyor!",
+          icon: "favicon.png"
+        });
+      }
+    }
+
+    // İlk yükleme
+    setMode(currentMode);
+    updateCounterState();
+  </script>
 </body>
 </html>
