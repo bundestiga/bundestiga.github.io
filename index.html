@@ -42,7 +42,7 @@
       overflow-x: hidden;
     }
 
-    /* ================= SOL AÇILIR MENÜ (DRAWER) ================= */
+    /* SOL MENÜ (DRAWER) */
     .menu-trigger {
       position: fixed;
       top: 24px;
@@ -162,7 +162,6 @@
       box-shadow: inset 0 2px 4px rgba(0,0,0,0.04);
     }
 
-    /* GÖRÜNÜM GEÇİŞİ */
     .view-section {
       display: none;
       animation: fadeIn 0.35s ease forwards;
@@ -177,7 +176,7 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* ================= 0. GÖRÜNÜM: KARŞILAMA EKRANI ================= */
+    /* 0. KARŞILAMA EKRANI */
     .welcome-screen {
       position: relative;
       min-height: 100vh;
@@ -256,7 +255,7 @@
       .welcome-screen::before { width: 75px; }
     }
 
-    /* ================= 1. GÖRÜNÜM: ÖPÜŞME SAYACI ================= */
+    /* 1. ÖPÜŞME SAYACI */
     .counter-screen {
       min-height: 100vh;
       display: flex;
@@ -610,7 +609,7 @@
       cursor: pointer;
     }
 
-    /* ================= 2. GÖRÜNÜM: ETKİNLİKLER SAYFASI (VINTAGE PARŞÖMEN) ================= */
+    /* 2. ETKİNLİKLER SAYFASI (VINTAGE PARŞÖMEN) */
     .events-screen {
       min-height: 100vh;
       padding: 40px 16px 80px;
@@ -646,6 +645,13 @@
       font-weight: 600;
       color: #aa7760;
       letter-spacing: -0.5px;
+    }
+
+    .sync-status {
+      font-size: 11px;
+      color: #8c7362;
+      font-weight: 600;
+      margin-top: 4px;
     }
 
     .btn-create-event {
@@ -698,7 +704,6 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.06);
     }
 
-    /* GÖRSELDEKİ PARŞÖMEN / YIRTIK KÂĞIT KART IZGARASI */
     .events-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -715,7 +720,6 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      /* Yırtık & Dalgalı Vintage Kâğıt Kenar Şablonu */
       border-radius: 12px 28px 14px 26px / 26px 14px 28px 12px;
       box-shadow: 
         0 1px 2px rgba(0,0,0,0.05), 
@@ -732,13 +736,10 @@
         inset 0 0 40px rgba(224, 205, 175, 0.55);
     }
 
-    /* Tamamlanmış (Yapıldı) Kartlar */
     .parchment-card.is-done {
-      opacity: 0.52;
-      filter: grayscale(20%);
+      opacity: 0.65;
     }
 
-    /* KART ÜST BUTONLARI (DURUM & SİL) */
     .card-top-actions {
       width: 100%;
       display: flex;
@@ -785,7 +786,6 @@
       color: #9f3220;
     }
 
-    /* KARTTAKİ POLAROİD FOTOĞRAF ALANI */
     .polaroid-frame {
       width: 100%;
       aspect-ratio: 1 / 0.85;
@@ -817,7 +817,6 @@
       font-style: italic;
     }
 
-    /* EL YAZISI BAŞLIK VE TARİH */
     .card-event-title {
       font-family: 'Caveat', cursive;
       font-size: 22px;
@@ -836,10 +835,10 @@
       margin-bottom: 8px;
     }
 
-    /* DEFTER ÇİZGİLERİ VE ALINAN NOTLAR */
     .lined-notes-area {
       width: 100%;
       margin-top: 4px;
+      margin-bottom: 8px;
     }
 
     .lined-notes-header {
@@ -864,77 +863,32 @@
       word-break: break-word;
     }
 
-    /* GÖRSELDEKİ KİLİTLİ MÜHÜR EKRANI (LOCKED / SAVED) */
-    .locked-stamp-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
+    /* KİLİTLENMİŞ KALICI NOT BÖLÜMÜ (KART ÜZERİNDE GÖRÜNÜR) */
+    .locked-memory-inline {
       width: 100%;
-      height: 100%;
-      background: rgba(250, 245, 234, 0.93);
-      border-radius: inherit;
+      background: #fff4ea;
+      border: 1px dashed #d5b396;
+      border-radius: 8px;
+      padding: 8px 10px;
+      margin-top: 8px;
+    }
+
+    .locked-memory-inline-header {
       display: flex;
-      flex-direction: column;
-      justify-content: center;
       align-items: center;
-      z-index: 10;
-      backdrop-filter: blur(1.5px);
-    }
-
-    .stamp-saved-text {
-      font-size: 14px;
-      letter-spacing: 2px;
-      font-weight: 700;
-      color: #887869;
-      margin-bottom: 12px;
-    }
-
-    .stamp-seal-badge {
-      width: 64px;
-      height: 64px;
-      background: #b58066;
-      border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      box-shadow: 0 4px 12px rgba(181, 128, 102, 0.35);
-      border: 3px dashed #ecdac9;
-      margin-bottom: 14px;
-    }
-
-    .stamp-seal-badge span {
-      font-size: 28px;
-      color: #ffffff;
-    }
-
-    .stamp-ribbon-text {
-      background: #cbb49e;
-      color: #ffffff;
+      gap: 6px;
       font-size: 11px;
       font-weight: 700;
-      padding: 4px 16px;
-      border-radius: 4px;
-      margin-bottom: 10px;
-      letter-spacing: 0.5px;
+      color: #9e6347;
+      margin-bottom: 4px;
     }
 
-    .stamp-locked-tag {
-      font-size: 13px;
-      letter-spacing: 2px;
-      font-weight: 700;
-      color: #5e5144;
-    }
-
-    .btn-view-locked-note {
-      margin-top: 14px;
-      background: transparent;
-      border: 1px solid #b58066;
-      color: #8c604b;
-      font-size: 11.5px;
-      font-weight: 700;
-      padding: 6px 14px;
-      border-radius: 20px;
-      cursor: pointer;
+    .locked-memory-inline-text {
+      font-size: 12px;
+      color: #443c34;
+      line-height: 1.45;
+      font-style: italic;
+      white-space: pre-wrap;
     }
 
     .btn-trigger-memory {
@@ -943,11 +897,16 @@
       background: #fff;
       border: 1px dashed #b58269;
       color: #8c604b;
-      padding: 6px;
+      padding: 7px;
       border-radius: 8px;
       font-size: 11.5px;
       font-weight: 700;
       cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-trigger-memory:hover {
+      background: #f7ede0;
     }
 
     /* MODAL FORM */
@@ -1027,7 +986,7 @@
       cursor: pointer;
     }
 
-    /* ================= 3. GÖRÜNÜM: ASKILIK KATALOĞU ================= */
+    /* 3. ASKILIK KATALOĞU */
     .catalog-screen {
       padding: 40px 12px 60px;
       background-color: #d1d5db;
@@ -1275,17 +1234,16 @@
 </head>
 <body>
 
-  <!-- SOL MENÜ TETİKLEYİCİSİ (3 ÇİZGİ HAMBURGER) -->
+  <!-- MENÜ BUTONU (HAMBURGER) -->
   <div class="menu-trigger" id="menuToggle" title="Menü">
     <span></span>
     <span></span>
     <span></span>
   </div>
 
-  <!-- KARARTMA ARKA PLANI -->
   <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-  <!-- SOL ÇEKMECE MENÜSÜ -->
+  <!-- SOL MENÜ -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-title">Gezinti Menüsü</div>
     <div class="sidebar-nav-container">
@@ -1304,11 +1262,10 @@
     </div>
   </aside>
 
-  <!-- ================= 0. GÖRÜNÜM: KARŞILAMA EKRANI ================= -->
+  <!-- 0. KARŞILAMA EKRANI -->
   <main class="view-section active-view" id="welcomeScreen">
     <div class="welcome-screen">
       
-      <!-- 3 Boyutlu Yay Çizgisi -->
       <div class="curved-arrow-container">
         <svg class="curved-arrow-svg" viewBox="0 0 1000 600" preserveAspectRatio="none">
           <defs>
@@ -1343,7 +1300,7 @@
     </div>
   </main>
 
-  <!-- ================= 1. GÖRÜNÜM: ÖPÜŞME SAYACI ================= -->
+  <!-- 1. ÖPÜŞME SAYACI -->
   <main class="view-section" id="counterScreen">
     <div class="counter-screen">
       <h2 class="counter-header-title">Öpüşme Sayacı</h2>
@@ -1372,7 +1329,7 @@
 
         <div class="secondary-controls">
           <button class="btn-sub" id="btnToggleNotify">🔔 Bildirimleri Aç</button>
-          <button class="btn-sub" id="btnToggleDateEditor">⚙️ Başlangıç Ayarla</button>
+          <button class="btn-sub" id="btnToggleDateEditor">⚙️️ Başlangıç Ayarla</button>
         </div>
 
         <div class="date-editor-card" id="dateEditorCard">
@@ -1399,7 +1356,7 @@
     </div>
   </div>
 
-  <!-- ================= 2. GÖRÜNÜM: ETKİNLİKLER SAYFASI (VINTAGE PARŞÖMEN) ================= -->
+  <!-- 2. ETKİNLİKLER SAYFASI (VINTAGE PARŞÖMEN) -->
   <main class="view-section" id="eventsScreen">
     <div class="events-screen">
       <div class="events-container">
@@ -1407,7 +1364,10 @@
         <div class="events-top-bar">
           <div class="events-title-box">
             <span class="events-title-icon">📷</span>
-            <h2>Etkinlikler</h2>
+            <div>
+              <h2>Etkinlikler</h2>
+              <div class="sync-status" id="syncStatus">🔄 Bulut ile senkronize ediliyor...</div>
+            </div>
           </div>
           <button class="btn-create-event" id="btnOpenEventModal">
             <span>+</span> Yeni Etkinlik
@@ -1465,7 +1425,7 @@
     <div class="event-modal-box">
       <h3 style="color: #b58066;">🔒 Etkinliği Mühürle & Kilitle</h3>
       <p style="font-size: 12.5px; color: #7a6e60; margin-bottom: 14px; line-height: 1.5;">
-        <strong>Önemli:</strong> Bu notu kaydettiğinizde etkinlik kalıcı olarak mühürlenecek (LOCKED), üzerinde kilit rozeti çıkacak ve bu not bir daha asla değiştirilemeyecektir.
+        <strong>Önemli:</strong> Bu notu kaydettiğinizde anı notu kalıcı olarak kilitlenecek ve bir daha asla düzenlenemeyecektir.
       </p>
       
       <div class="form-group">
@@ -1480,18 +1440,7 @@
     </div>
   </div>
 
-  <!-- MÜHÜRLÜ NOTU GÖRÜNTÜLEME PENCERESİ -->
-  <div class="modal-backdrop" id="viewLockedMemoryModal">
-    <div class="event-modal-box">
-      <h3 style="color: #b58066; text-align: center;">🔒 Mühürlü Anı Defteri</h3>
-      <div class="notebook-lines" id="viewLockedMemoryText" style="margin-top: 14px; font-size: 14px; min-height: 100px;"></div>
-      <div class="modal-actions" style="margin-top: 18px;">
-        <button class="btn-modal-cancel" id="btnCloseViewMemory" style="flex:1;">Kapat</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ================= 3. GÖRÜNÜM: ASKILIK KATALOĞU ================= -->
+  <!-- 3. ASKILIK KATALOĞU -->
   <main class="view-section" id="catalogScreen">
     <div class="catalog-screen">
       <!-- 1. Sayfa -->
@@ -1593,7 +1542,7 @@
 
   <!-- JAVASCRIPT MOTORU -->
   <script>
-    // 1. SOL MENÜ VE EKRAN KALICILIĞI (LOCALSTORAGE)
+    // 1. SOL MENÜ VE EKRAN KALICILIĞI
     const menuToggle = document.getElementById('menuToggle');
     const sidebar = document.getElementById('sidebar');
     const sidebarOverlay = document.getElementById('sidebarOverlay');
@@ -1729,6 +1678,7 @@
       localStorage.setItem('last_kiss_timestamp', lastKissTime);
       notificationSentForCurrentPeriod = false;
       updateCounterState();
+      syncKissTimeToCloud(lastKissTime);
     });
 
     const dateEditorCard = document.getElementById('dateEditorCard');
@@ -1751,6 +1701,7 @@
         notificationSentForCurrentPeriod = false;
         updateCounterState();
         dateEditorCard.classList.remove('open');
+        syncKissTimeToCloud(lastKissTime);
       }
     });
 
@@ -1784,7 +1735,10 @@
     setMode(currentMode);
     updateCounterState();
 
-    // ================= 3. VINTAGE PARŞÖMEN ETKİNLİKLER MOTORU =================
+    // ================= 3. BULUT SENKRONİZASYONU & ETKİNLİKLER (PC & TELEFON ORTAK) =================
+    const CLOUD_BIN_ID = "67530669ad19ca34f8d6fcb2"; // Otomatik ortak depolama kutusu
+    const CLOUD_API_KEY = "$2a$10$tZzCjG1yZ4vS34kKkW2r9e.7N8QpW0j00lVl.L9j4w4x.94hB14vO"; // Yetkili erişim
+
     let events = JSON.parse(localStorage.getItem('bundestiga_events')) || [];
     let currentFilter = 'all';
     let targetMemoryEventId = null;
@@ -1792,10 +1746,103 @@
     const eventsGrid = document.getElementById('eventsGrid');
     const eventModal = document.getElementById('eventModal');
     const memoryModal = document.getElementById('memoryModal');
-    const viewLockedMemoryModal = document.getElementById('viewLockedMemoryModal');
     const filterButtons = document.querySelectorAll('.filter-btn');
+    const syncStatus = document.getElementById('syncStatus');
 
-    // Filtre butonları
+    // Buluttan En Güncel Verileri İndir (Telefon & PC Eşitleme)
+    async function loadFromCloud() {
+      try {
+        syncStatus.textContent = "🔄 Bulut kontrol ediliyor...";
+        const res = await fetch(`https://api.jsonbin.io/v3/b/${CLOUD_BIN_ID}/latest`, {
+          headers: { 'X-Master-Key': CLOUD_API_KEY }
+        });
+        if (res.ok) {
+          const data = await res.json();
+          if (data.record) {
+            if (Array.isArray(data.record.events)) {
+              events = data.record.events;
+              localStorage.setItem('bundestiga_events', JSON.stringify(events));
+            }
+            if (data.record.lastKissTime) {
+              lastKissTime = data.record.lastKissTime;
+              localStorage.setItem('last_kiss_timestamp', lastKissTime);
+              updateCounterState();
+            }
+          }
+          syncStatus.textContent = "☁️ Bulutla eşitlendi (PC & Mobil Ortak)";
+        }
+      } catch (e) {
+        syncStatus.textContent = "📱 Yerel hafıza devrede";
+      }
+      renderEvents();
+    }
+
+    // Değişiklikleri Buluta Kaydet (Tüm Cihazlara Yayınla)
+    async function saveToCloud() {
+      localStorage.setItem('bundestiga_events', JSON.stringify(events));
+      renderEvents();
+      try {
+        syncStatus.textContent = "☁️ Kaydediliyor...";
+        await fetch(`https://api.jsonbin.io/v3/b/${CLOUD_BIN_ID}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Master-Key': CLOUD_API_KEY
+          },
+          body: JSON.stringify({
+            events: events,
+            lastKissTime: lastKissTime
+          })
+        });
+        syncStatus.textContent = "☁️ Buluta kaydedildi ✓";
+      } catch (err) {
+        syncStatus.textContent = "⚠️ Yerel kaydedildi (Ağ yok)";
+      }
+    }
+
+    function syncKissTimeToCloud(newTime) {
+      fetch(`https://api.jsonbin.io/v3/b/${CLOUD_BIN_ID}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Master-Key': CLOUD_API_KEY
+        },
+        body: JSON.stringify({
+          events: events,
+          lastKissTime: newTime
+        })
+      }).catch(() => {});
+    }
+
+    // Görsel Boyutunu Optimize Eden Fonksiyon (Hızlı Senkronizasyon İçin)
+    function compressImage(file, callback) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+          const canvas = document.createElement('canvas');
+          const maxDim = 800;
+          let width = img.width;
+          let height = img.height;
+          if (width > height && width > maxDim) {
+            height = Math.round((height * maxDim) / width);
+            width = maxDim;
+          } else if (height > maxDim) {
+            width = Math.round((width * maxDim) / height);
+            height = maxDim;
+          }
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+          callback(canvas.toDataURL('image/jpeg', 0.72));
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // Filtreleme
     filterButtons.forEach(btn => {
       btn.addEventListener('click', () => {
         filterButtons.forEach(b => b.classList.remove('active'));
@@ -1818,11 +1865,7 @@
       targetMemoryEventId = null;
     });
 
-    document.getElementById('btnCloseViewMemory').addEventListener('click', () => {
-      viewLockedMemoryModal.classList.remove('show');
-    });
-
-    // Yeni Etkinlik Kaydet
+    // Yeni Etkinlik Ekleme
     document.getElementById('btnSaveEvent').addEventListener('click', () => {
       const title = document.getElementById('eventTitleInput').value.trim();
       const datetime = document.getElementById('eventDateTimeInput').value;
@@ -1834,7 +1877,7 @@
         return;
       }
 
-      function createAndSave(imgData) {
+      function finishSave(imgData) {
         const newEvent = {
           id: 'evt_' + Date.now(),
           title: title,
@@ -1846,38 +1889,31 @@
         };
 
         events.push(newEvent);
-        localStorage.setItem('bundestiga_events', JSON.stringify(events));
+        saveToCloud();
 
         document.getElementById('eventTitleInput').value = '';
         document.getElementById('eventDateTimeInput').value = '';
         document.getElementById('eventPlanNoteInput').value = '';
         imageFileInput.value = '';
         eventModal.classList.remove('show');
-
-        renderEvents();
       }
 
       if (imageFileInput.files && imageFileInput.files[0]) {
-        const reader = new FileReader();
-        reader.onload = function (e) {
-          createAndSave(e.target.result);
-        };
-        reader.readAsDataURL(imageFileInput.files[0]);
+        compressImage(imageFileInput.files[0], finishSave);
       } else {
-        createAndSave(null);
+        finishSave(null);
       }
     });
 
-    // Etkinlik Silme Fonksiyonu
+    // Etkinlik Silme
     function deleteEvent(id) {
-      if (confirm("Bu etkinliği silmek istediğinize emin misiniz?")) {
+      if (confirm("Bu etkinliği her iki cihazdan da tamamen silmek istediğinize emin misiniz?")) {
         events = events.filter(evt => evt.id !== id);
-        localStorage.setItem('bundestiga_events', JSON.stringify(events));
-        renderEvents();
+        saveToCloud();
       }
     }
 
-    // Yapıldı / Yapılacak Durumunu Değiştirme
+    // Durum Değiştirme (Yapıldı / Yapılacak)
     function toggleEventDone(id) {
       events = events.map(evt => {
         if (evt.id === id) {
@@ -1885,11 +1921,10 @@
         }
         return evt;
       });
-      localStorage.setItem('bundestiga_events', JSON.stringify(events));
-      renderEvents();
+      saveToCloud();
     }
 
-    // Mühürlü Anı Notu Ekleme Penceresi Aç
+    // Mühürlü Anı Notu Ekleme Penceresini Açma
     function openMemoryModal(id) {
       targetMemoryEventId = id;
       document.getElementById('eventMemoryInput').value = '';
@@ -1911,26 +1946,15 @@
         return evt;
       });
 
-      localStorage.setItem('bundestiga_events', JSON.stringify(events));
+      saveToCloud();
       memoryModal.classList.remove('show');
       targetMemoryEventId = null;
-      renderEvents();
     });
 
-    // Mühürlü Notu Okuma Penceresi
-    function viewLockedMemory(id) {
-      const target = events.find(e => e.id === id);
-      if (target && target.lockedMemory) {
-        document.getElementById('viewLockedMemoryText').textContent = target.lockedMemory;
-        viewLockedMemoryModal.classList.add('show');
-      }
-    }
-
-    // Kartları Ekrana Çizdir
+    // Kartları Ekrana Çizdir (SAVED Perdesi Olmadan, Fotoğraf ve Notlar Her Zaman Açık)
     function renderEvents() {
       eventsGrid.innerHTML = '';
 
-      // Sıralama: Önce yapılacaklar (erken tarihten geç tarihe), sonra yapılmışlar sonda
       const sortedEvents = [...events].sort((a, b) => {
         if (a.done !== b.done) {
           return a.done ? 1 : -1;
@@ -1959,37 +1983,20 @@
           year: 'numeric'
         });
 
-        // Kilitli (Locked) Durum Şablonu
-        let lockedOverlayHTML = '';
-        if (evt.lockedMemory) {
-          lockedOverlayHTML = `
-            <div class="locked-stamp-overlay">
-              <div class="stamp-saved-text">SAVED</div>
-              <div class="stamp-seal-badge">
-                <span>🔒</span>
-              </div>
-              <div class="stamp-ribbon-text">Kilitli / Değiştirilemez</div>
-              <div class="stamp-locked-tag">LOCKED</div>
-              <button class="btn-view-locked-note" onclick="viewLockedMemory('${evt.id}')">Anı Notunu Oku</button>
-            </div>
-          `;
-        }
-
         card.innerHTML = `
-          ${lockedOverlayHTML}
           <div class="card-top-actions">
             <span class="card-status-pill ${evt.done ? 'completed' : 'pending'}" onclick="toggleEventDone('${evt.id}')">
               ${evt.done ? '✓ Yapıldı' : '⏳ Yapılacak'}
             </span>
-            <button class="btn-delete-card" onclick="deleteEvent('${evt.id}')" title="Etkinliği Sil">🗑️️ Sil</button>
+            <button class="btn-delete-card" onclick="deleteEvent('${evt.id}')" title="Etkinliği Sil">🗑 Sil</button>
           </div>
 
           <div class="polaroid-frame">
-            ${evt.image ? `<img src="${evt.image}" alt="Etkinlik Fotoğrafı">` : `<div class="polaroid-placeholder">Fotoğraf Yok</div>`}
+            ${evt.image ? `<img src="${evt.image}" alt="Etkinlik Fotoğrafı">` : `<div class="polaroid-placeholder">Fotoğraf Eklenmedi</div>`}
           </div>
 
           <div class="card-event-title">${evt.title}</div>
-          <div class="card-event-date">${formattedDate}</div>
+          <div class="card-event-date">📅 ${formattedDate}</div>
 
           <div class="lined-notes-area">
             <div class="lined-notes-header">
@@ -1998,18 +2005,26 @@
             <div class="notebook-lines">${evt.planNote || '—'}</div>
           </div>
 
-          ${!evt.lockedMemory ? `
+          ${evt.lockedMemory ? `
+            <div class="locked-memory-inline">
+              <div class="locked-memory-inline-header">
+                <span>🔒</span> Mühürlü Anı (Değiştirilemez)
+              </div>
+              <div class="locked-memory-inline-text">${evt.lockedMemory}</div>
+            </div>
+          ` : `
             <button class="btn-trigger-memory" onclick="openMemoryModal('${evt.id}')">
-              🔒 Mühürle & Kilitle
+              🔒 Mühürle & Not Ekle
             </button>
-          ` : ''}
+          `}
         `;
 
         eventsGrid.appendChild(card);
       });
     }
 
-    renderEvents();
+    // Sayfa açıldığında buluttan verileri çek
+    loadFromCloud();
   </script>
 </body>
 </html>
