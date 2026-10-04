@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- FIREBASE SDK (ÜCRETSİZ FIRESTORE) -->
+  <!-- FIREBASE SDK -->
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 
@@ -949,6 +949,7 @@
       background: #f7ede0;
     }
 
+    /* DETAY POP-UP MODAL */
     .detail-popup-box {
       background: #faf4e8;
       border: 1.5px solid #ebd9c8;
@@ -1685,7 +1686,7 @@
     const savedActivePage = localStorage.getItem('active_bundestiga_page') || 'welcomeScreen';
     switchView(savedActivePage);
 
-    // 2. ÖPÜŞME SAYACI MOTORU (FIREBASE REALTIME ENTEGRELİ)
+    // 2. ÖPÜŞME SAYACI MOTORU
     const MODES = {
       normal: { threshold: 500, desc: "Normal bir seviyedir" },
       hiiy: { threshold: 300, desc: "Öpülmediğinde telaşlı bir şekilde sizi öpecektir" },
@@ -1813,7 +1814,6 @@
       });
     });
 
-    // Firestore'dan Canlı Dinleme (Sayaç Eşitlemesi)
     db.collection('app_state').doc('kiss_counter').onSnapshot(doc => {
       if (doc.exists && doc.data().lastKissTime) {
         lastKissTime = doc.data().lastKissTime;
@@ -1864,13 +1864,26 @@
       detailModal.classList.remove('show');
     });
 
-    function openDetailPopup(title, content) {
-      detailPopupTitle.textContent = title;
-      detailPopupText.textContent = content;
-      detailModal.classList.add('show');
+    // Plan Notu Detay Penceresi (Güvenli ID ile çağırma)
+    function showPlanNote(eventId) {
+      const evt = events.find(e => e.id === eventId);
+      if (evt) {
+        detailPopupTitle.textContent = evt.title + " • Plan Notu";
+        detailPopupText.textContent = evt.planNote || "Henüz bir plan notu eklenmemiş.";
+        detailModal.classList.add('show');
+      }
     }
 
-    // Görseli Doğrudan Veritabanına Yazacak Şekilde Optimize Eden Motor
+    // Mühürlü Anı Detay Penceresi (Güvenli ID ile çağırma)
+    function showLockedMemory(eventId) {
+      const evt = events.find(e => e.id === eventId);
+      if (evt) {
+        detailPopupTitle.textContent = evt.title + " • Mühürlü Anı 🔒";
+        detailPopupText.textContent = evt.lockedMemory || "";
+        detailModal.classList.add('show');
+      }
+    }
+
     function compressImageForDB(file, callback) {
       const reader = new FileReader();
       reader.onload = function(e) {
@@ -1898,7 +1911,6 @@
       reader.readAsDataURL(file);
     }
 
-    // Firebase Firestore'dan Canlı Etkinlik Dinleme (PC/Mobil Anında Çıkar)
     db.collection('events').orderBy('createdAt', 'desc').onSnapshot(snapshot => {
       events = [];
       snapshot.forEach(doc => {
@@ -1909,7 +1921,6 @@
       console.error("Firestore okuma hatası:", err);
     });
 
-    // Yeni Etkinlik Kaydet (Telefondan/PC'den)
     document.getElementById('btnSaveEvent').addEventListener('click', () => {
       const title = document.getElementById('eventTitleInput').value.trim();
       const datetime = document.getElementById('eventDateTimeInput').value;
@@ -1955,28 +1966,24 @@
       }
     });
 
-    // Etkinlik Silme
     function deleteEvent(id) {
       if (confirm("Bu etkinliği buluttan tamamen silmek istediğinize emin misiniz?")) {
         db.collection('events').doc(id).delete().catch(err => alert(err.message));
       }
     }
 
-    // Durum Değiştirme (Yapıldı / Bekliyor)
     function toggleEventDone(id, currentStatus) {
       db.collection('events').doc(id).update({
         done: !currentStatus
       }).catch(err => alert(err.message));
     }
 
-    // Mühürlü Not Modal Aç
     function openMemoryModal(id) {
       targetMemoryEventId = id;
       document.getElementById('eventMemoryInput').value = '';
       memoryModal.classList.add('show');
     }
 
-    // Mühürlü Notu Kaydet (Asla Değiştirilemez)
     document.getElementById('btnSaveMemory').addEventListener('click', () => {
       const memoryText = document.getElementById('eventMemoryInput').value.trim();
       if (!memoryText) {
@@ -1995,7 +2002,6 @@
       }
     });
 
-    // Kartları Ekrana Çizdir
     function renderEvents() {
       eventsGrid.innerHTML = '';
 
@@ -2040,16 +2046,16 @@
           <div class="card-event-title">${evt.title}</div>
           <div class="card-event-date">📅 ${formattedDate}</div>
 
-          <div class="lined-notes-area" onclick="openDetailPopup('${evt.title.replace(/'/g, "\\'")} - Plan Notu', '${(evt.planNote || '—').replace(/'/g, "\\'")}')" title="Notun tamamını oku">
+          <div class="lined-notes-area" onclick="showPlanNote('${evt.id}')" title="Notun tamamını oku">
             <div class="lined-notes-header">
               <span>Alınan notlar</span>
-              <span class="more-hint">🔍 Oku</span>
+              <span class="more-hint" style="cursor:pointer; text-decoration: underline;">🔍 Oku</span>
             </div>
             <div class="notebook-lines">${evt.planNote || '—'}</div>
           </div>
 
           ${evt.lockedMemory ? `
-            <div class="locked-memory-inline" onclick="openDetailPopup('${evt.title.replace(/'/g, "\\'")} - Mühürlü Anı', '${evt.lockedMemory.replace(/'/g, "\\'")}')" title="Anı notunun tamamını oku">
+            <div class="locked-memory-inline" onclick="showLockedMemory('${evt.id}')" title="Anı notunun tamamını oku">
               <div class="locked-memory-inline-header">
                 <span>🔒</span> Mühürlü Anı (Tıkla & Oku)
               </div>
