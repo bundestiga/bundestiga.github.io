@@ -710,6 +710,7 @@
       gap: 30px 24px;
     }
 
+    /* KART YAPISI */
     .parchment-card {
       position: relative;
       background-color: #faf5ea;
@@ -717,6 +718,8 @@
       background-size: 16px 16px;
       padding: 22px 18px 24px;
       min-height: 330px;
+      width: 100%;
+      max-width: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -727,6 +730,7 @@
         inset 0 0 35px rgba(224, 205, 175, 0.45);
       border: 1px solid #ebdcc5;
       transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
+      overflow: hidden; /* Dışa taşmayı kesin olarak engeller */
     }
 
     .parchment-card:hover {
@@ -825,6 +829,9 @@
       text-align: center;
       line-height: 1.15;
       margin-bottom: 2px;
+      width: 100%;
+      overflow-wrap: break-word;
+      word-break: break-word;
     }
 
     .card-event-date {
@@ -839,6 +846,7 @@
       width: 100%;
       margin-top: 4px;
       margin-bottom: 8px;
+      cursor: pointer;
     }
 
     .lined-notes-header {
@@ -851,26 +859,55 @@
       align-items: baseline;
     }
 
+    /* KARTTAKI ÇİZGİLİ NOT ALANI (TAŞMAYI ENGELLER & MAX 3 SATIR GÖSTERİR) */
     .notebook-lines {
       width: 100%;
+      max-width: 100%;
       background-image: repeating-linear-gradient(transparent, transparent 20px, #e4d4bd 21px, #e4d4bd 22px);
       line-height: 22px;
       min-height: 66px;
+      max-height: 66px;
       padding: 0 4px;
       font-size: 12.5px;
       color: #554a3e;
-      white-space: pre-wrap;
-      word-break: break-word;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow-wrap: break-word;
+      word-break: break-all;
+      transition: color 0.2s ease;
     }
 
-    /* KİLİTLENMİŞ KALICI NOT BÖLÜMÜ (KART ÜZERİNDE GÖRÜNÜR) */
+    .lined-notes-area:hover .notebook-lines {
+      color: #8c604b;
+    }
+
+    .more-hint {
+      display: block;
+      font-size: 10.5px;
+      font-weight: 700;
+      color: #b58269;
+      text-align: right;
+      margin-top: 2px;
+    }
+
+    /* KİLİTLENMİŞ KALICI NOT BÖLÜMÜ */
     .locked-memory-inline {
       width: 100%;
+      max-width: 100%;
       background: #fff4ea;
       border: 1px dashed #d5b396;
       border-radius: 8px;
       padding: 8px 10px;
       margin-top: 8px;
+      cursor: pointer;
+      overflow: hidden;
+    }
+
+    .locked-memory-inline:hover {
+      background: #faede0;
     }
 
     .locked-memory-inline-header {
@@ -888,7 +925,14 @@
       color: #443c34;
       line-height: 1.45;
       font-style: italic;
-      white-space: pre-wrap;
+      max-height: 48px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow-wrap: break-word;
+      word-break: break-all;
     }
 
     .btn-trigger-memory {
@@ -909,7 +953,43 @@
       background: #f7ede0;
     }
 
-    /* MODAL FORM */
+    /* POP-UP DETAY OKUMA PENCERESİ (SCROLL EDİLEBİLİR) */
+    .detail-popup-box {
+      background: #faf4e8;
+      border: 1.5px solid #ebd9c8;
+      border-radius: 20px;
+      padding: 24px;
+      width: 92%;
+      max-width: 480px;
+      max-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.16);
+    }
+
+    .detail-popup-title {
+      font-family: 'Caveat', cursive;
+      font-size: 26px;
+      font-weight: 700;
+      color: #8c604b;
+      margin-bottom: 12px;
+      border-bottom: 1px dashed #d5c3b1;
+      padding-bottom: 6px;
+    }
+
+    .detail-scroll-content {
+      overflow-y: auto;
+      padding-right: 8px;
+      font-size: 13.5px;
+      color: #443c34;
+      line-height: 1.7;
+      white-space: pre-wrap;
+      overflow-wrap: break-word;
+      word-break: break-word;
+      max-height: 55vh;
+    }
+
+    /* MODAL FORMLAR */
     .event-modal-box {
       background: #faf5ed;
       border: 1px solid #e2d2bf;
@@ -1329,7 +1409,7 @@
 
         <div class="secondary-controls">
           <button class="btn-sub" id="btnToggleNotify">🔔 Bildirimleri Aç</button>
-          <button class="btn-sub" id="btnToggleDateEditor">⚙️️ Başlangıç Ayarla</button>
+          <button class="btn-sub" id="btnToggleDateEditor">⚙ Başlangıç Ayarla</button>
         </div>
 
         <div class="date-editor-card" id="dateEditorCard">
@@ -1387,6 +1467,17 @@
       </div>
     </div>
   </main>
+
+  <!-- DETAY OKUMA MODAL (UZUN METİNLER İÇİN SCROLL EDİLEBİLİR DETAY) -->
+  <div class="modal-backdrop" id="detailModal">
+    <div class="detail-popup-box">
+      <div class="detail-popup-title" id="detailPopupTitle">Not Detayı</div>
+      <div class="detail-scroll-content" id="detailPopupText"></div>
+      <div class="modal-actions" style="margin-top: 18px;">
+        <button class="btn-modal-cancel" id="btnDetailClose" style="flex:1;">Kapat</button>
+      </div>
+    </div>
+  </div>
 
   <!-- YENİ ETKİNLİK EKLEME MODAL -->
   <div class="modal-backdrop" id="eventModal">
@@ -1735,9 +1826,9 @@
     setMode(currentMode);
     updateCounterState();
 
-    // ================= 3. BULUT SENKRONİZASYONU & ETKİNLİKLER (PC & TELEFON ORTAK) =================
-    const CLOUD_BIN_ID = "67530669ad19ca34f8d6fcb2"; // Otomatik ortak depolama kutusu
-    const CLOUD_API_KEY = "$2a$10$tZzCjG1yZ4vS34kKkW2r9e.7N8QpW0j00lVl.L9j4w4x.94hB14vO"; // Yetkili erişim
+    // ================= 3. BULUT SENKRONİZASYONU & ETKİNLİKLER =================
+    const CLOUD_BIN_ID = "67530669ad19ca34f8d6fcb2";
+    const CLOUD_API_KEY = "$2a$10$tZzCjG1yZ4vS34kKkW2r9e.7N8QpW0j00lVl.L9j4w4x.94hB14vO";
 
     let events = JSON.parse(localStorage.getItem('bundestiga_events')) || [];
     let currentFilter = 'all';
@@ -1746,10 +1837,13 @@
     const eventsGrid = document.getElementById('eventsGrid');
     const eventModal = document.getElementById('eventModal');
     const memoryModal = document.getElementById('memoryModal');
+    const detailModal = document.getElementById('detailModal');
+    const detailPopupTitle = document.getElementById('detailPopupTitle');
+    const detailPopupText = document.getElementById('detailPopupText');
     const filterButtons = document.querySelectorAll('.filter-btn');
     const syncStatus = document.getElementById('syncStatus');
 
-    // Buluttan En Güncel Verileri İndir (Telefon & PC Eşitleme)
+    // Buluttan Veri Çekme
     async function loadFromCloud() {
       try {
         syncStatus.textContent = "🔄 Bulut kontrol ediliyor...";
@@ -1777,7 +1871,7 @@
       renderEvents();
     }
 
-    // Değişiklikleri Buluta Kaydet (Tüm Cihazlara Yayınla)
+    // Buluta Kaydetme
     async function saveToCloud() {
       localStorage.setItem('bundestiga_events', JSON.stringify(events));
       renderEvents();
@@ -1814,7 +1908,7 @@
       }).catch(() => {});
     }
 
-    // Görsel Boyutunu Optimize Eden Fonksiyon (Hızlı Senkronizasyon İçin)
+    // Görsel Sıkıştırma
     function compressImage(file, callback) {
       const reader = new FileReader();
       reader.onload = function(e) {
@@ -1865,6 +1959,17 @@
       targetMemoryEventId = null;
     });
 
+    document.getElementById('btnDetailClose').addEventListener('click', () => {
+      detailModal.classList.remove('show');
+    });
+
+    // Detay Okuma Pop-up'ı Açma Fonksiyonu
+    function openDetailPopup(title, content) {
+      detailPopupTitle.textContent = title;
+      detailPopupText.textContent = content;
+      detailModal.classList.add('show');
+    }
+
     // Yeni Etkinlik Ekleme
     document.getElementById('btnSaveEvent').addEventListener('click', () => {
       const title = document.getElementById('eventTitleInput').value.trim();
@@ -1905,15 +2010,13 @@
       }
     });
 
-    // Etkinlik Silme
     function deleteEvent(id) {
-      if (confirm("Bu etkinliği her iki cihazdan da tamamen silmek istediğinize emin misiniz?")) {
+      if (confirm("Bu etkinliği silmek istediğinize emin misiniz?")) {
         events = events.filter(evt => evt.id !== id);
         saveToCloud();
       }
     }
 
-    // Durum Değiştirme (Yapıldı / Yapılacak)
     function toggleEventDone(id) {
       events = events.map(evt => {
         if (evt.id === id) {
@@ -1924,14 +2027,12 @@
       saveToCloud();
     }
 
-    // Mühürlü Anı Notu Ekleme Penceresini Açma
     function openMemoryModal(id) {
       targetMemoryEventId = id;
       document.getElementById('eventMemoryInput').value = '';
       memoryModal.classList.add('show');
     }
 
-    // Mühürlü Notu Kaydet (Asla Değiştirilemez)
     document.getElementById('btnSaveMemory').addEventListener('click', () => {
       const memoryText = document.getElementById('eventMemoryInput').value.trim();
       if (!memoryText) {
@@ -1951,7 +2052,7 @@
       targetMemoryEventId = null;
     });
 
-    // Kartları Ekrana Çizdir (SAVED Perdesi Olmadan, Fotoğraf ve Notlar Her Zaman Açık)
+    // Kartları Ekrana Çizdir
     function renderEvents() {
       eventsGrid.innerHTML = '';
 
@@ -1983,6 +2084,10 @@
           year: 'numeric'
         });
 
+        // Alınan notlar alanı (Tıklandığında tam metin açılır)
+        const planNoteSafe = (evt.planNote || '—').replace(/"/g, '&quot;');
+        const lockedMemorySafe = (evt.lockedMemory || '').replace(/"/g, '&quot;');
+
         card.innerHTML = `
           <div class="card-top-actions">
             <span class="card-status-pill ${evt.done ? 'completed' : 'pending'}" onclick="toggleEventDone('${evt.id}')">
@@ -1998,17 +2103,18 @@
           <div class="card-event-title">${evt.title}</div>
           <div class="card-event-date">📅 ${formattedDate}</div>
 
-          <div class="lined-notes-area">
+          <div class="lined-notes-area" onclick="openDetailPopup('${evt.title.replace(/'/g, "\\'")} - Plan Notu', '${(evt.planNote || '—').replace(/'/g, "\\'")}')" title="Notun tamamını oku">
             <div class="lined-notes-header">
               <span>Alınan notlar</span>
+              <span class="more-hint">🔍 Oku</span>
             </div>
             <div class="notebook-lines">${evt.planNote || '—'}</div>
           </div>
 
           ${evt.lockedMemory ? `
-            <div class="locked-memory-inline">
+            <div class="locked-memory-inline" onclick="openDetailPopup('${evt.title.replace(/'/g, "\\'")} - Mühürlü Anı', '${evt.lockedMemory.replace(/'/g, "\\'")}')" title="Anı notunun tamamını oku">
               <div class="locked-memory-inline-header">
-                <span>🔒</span> Mühürlü Anı (Değiştirilemez)
+                <span>🔒</span> Mühürlü Anı (Tıkla & Oku)
               </div>
               <div class="locked-memory-inline-text">${evt.lockedMemory}</div>
             </div>
@@ -2023,7 +2129,6 @@
       });
     }
 
-    // Sayfa açıldığında buluttan verileri çek
     loadFromCloud();
   </script>
 </body>
