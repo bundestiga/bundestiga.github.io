@@ -7,7 +7,7 @@
   <title>Bundestiga | Özel Alan</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -96,7 +96,6 @@
       pointer-events: auto;
     }
 
-    /* Menü Konteyneri */
     .sidebar {
       position: fixed;
       top: 0;
@@ -107,7 +106,7 @@
       z-index: 999;
       box-shadow: 10px 0 35px rgba(0, 0, 0, 0.12);
       transition: left 0.32s cubic-bezier(0.16, 1, 0.3, 1);
-      padding: 90px 24px 34px 24px; /* Hamburger butonunun altında kalmaması için üst padding artırıldı */
+      padding: 90px 24px 34px 24px;
       display: flex;
       flex-direction: column;
       border-right: 1px solid #ebd9c8;
@@ -129,7 +128,6 @@
       border-bottom: 1px solid #ece4d8;
     }
 
-    /* Menü elemanlarını dikeyde ortalama alanı */
     .sidebar-nav-container {
       display: flex;
       flex-direction: column;
@@ -540,8 +538,8 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.25);
-      backdrop-filter: blur(2px);
+      background: rgba(0, 0, 0, 0.28);
+      backdrop-filter: blur(3px);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -612,15 +610,15 @@
       cursor: pointer;
     }
 
-    /* ================= 2. GÖRÜNÜM: ETKİNLİKLER SAYFASI (YENİ) ================= */
+    /* ================= 2. GÖRÜNÜM: ETKİNLİKLER SAYFASI (VINTAGE PARŞÖMEN) ================= */
     .events-screen {
       min-height: 100vh;
       padding: 40px 16px 80px;
-      background: linear-gradient(135deg, #fbf7ee 0%, #ece2cb 100%);
+      background: #f5eedf;
     }
 
     .events-container {
-      max-width: 920px;
+      max-width: 1060px;
       margin: 0 auto;
     }
 
@@ -633,45 +631,49 @@
       gap: 14px;
     }
 
-    .events-title-box h2 {
-      font-size: 28px;
-      font-weight: 700;
-      color: #3b3731;
+    .events-title-box {
+      display: flex;
+      align-items: center;
+      gap: 14px;
     }
 
-    .events-title-box p {
-      font-size: 13.5px;
-      color: var(--text-muted);
-      margin-top: 4px;
+    .events-title-icon {
+      font-size: 32px;
+    }
+
+    .events-title-box h2 {
+      font-size: 32px;
+      font-weight: 600;
+      color: #aa7760;
+      letter-spacing: -0.5px;
     }
 
     .btn-create-event {
       display: flex;
       align-items: center;
       gap: 8px;
-      background: #5c4e43;
+      background: #b58269;
       color: #fff;
       border: none;
-      padding: 12px 22px;
-      border-radius: 14px;
+      padding: 12px 24px;
+      border-radius: 16px;
       font-size: 14px;
       font-weight: 700;
       cursor: pointer;
-      box-shadow: 0 6px 16px rgba(92, 78, 67, 0.25);
+      box-shadow: 0 6px 16px rgba(181, 130, 105, 0.3);
       transition: all 0.2s ease;
     }
 
     .btn-create-event:hover {
-      background: #473c33;
+      background: #9d6d56;
       transform: translateY(-2px);
     }
 
-    /* Filtreleme Butonları */
     .filter-pills {
       display: flex;
-      gap: 10px;
-      margin-bottom: 26px;
-      background: rgba(226, 214, 191, 0.5);
+      gap: 8px;
+      margin-bottom: 30px;
+      background: rgba(225, 212, 192, 0.45);
       padding: 5px;
       border-radius: 30px;
       width: fit-content;
@@ -685,175 +687,270 @@
       border-radius: 20px;
       font-size: 13px;
       font-weight: 600;
-      color: #635e55;
+      color: #6d6457;
       cursor: pointer;
       transition: all 0.2s ease;
     }
 
     .filter-btn.active {
       background: #ffffff;
-      color: #1f1d1a;
+      color: #2b251f;
       box-shadow: 0 2px 8px rgba(0,0,0,0.06);
     }
 
-    /* Kanban / Grid Kart Düzeni */
+    /* GÖRSELDEKİ PARŞÖMEN / YIRTIK KÂĞIT KART IZGARASI */
     .events-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 30px 24px;
     }
 
-    .event-card {
-      background: rgba(255, 255, 255, 0.9);
-      border: 1px solid #ebd9c8;
-      border-radius: 18px;
-      padding: 20px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+    .parchment-card {
+      position: relative;
+      background-color: #faf5ea;
+      background-image: radial-gradient(#f0e6d2 1px, transparent 0);
+      background-size: 16px 16px;
+      padding: 22px 18px 24px;
+      min-height: 330px;
       display: flex;
       flex-direction: column;
-      transition: all 0.25s ease;
-      position: relative;
+      align-items: center;
+      /* Yırtık & Dalgalı Vintage Kâğıt Kenar Şablonu */
+      border-radius: 12px 28px 14px 26px / 26px 14px 28px 12px;
+      box-shadow: 
+        0 1px 2px rgba(0,0,0,0.05), 
+        0 10px 25px rgba(120, 90, 60, 0.12),
+        inset 0 0 35px rgba(224, 205, 175, 0.45);
+      border: 1px solid #ebdcc5;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
     }
 
-    .event-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.07);
+    .parchment-card:hover {
+      transform: translateY(-4px) rotate(-0.5deg);
+      box-shadow: 
+        0 14px 30px rgba(120, 90, 60, 0.18),
+        inset 0 0 40px rgba(224, 205, 175, 0.55);
     }
 
-    /* Yapıldı (Tamamlandı) Durumunda Saydamlaşma */
-    .event-card.is-done {
-      opacity: 0.55;
-      background: rgba(245, 241, 233, 0.7);
-      border-style: dashed;
+    /* Tamamlanmış (Yapıldı) Kartlar */
+    .parchment-card.is-done {
+      opacity: 0.52;
+      filter: grayscale(20%);
     }
 
-    .event-card.is-done .event-card-title {
-      text-decoration: line-through;
-      color: #797670;
-    }
-
-    .event-card-header {
+    /* KART ÜST BUTONLARI (DURUM & SİL) */
+    .card-top-actions {
+      width: 100%;
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 10px;
-      gap: 8px;
+      align-items: center;
+      margin-bottom: 12px;
+      z-index: 5;
     }
 
-    .event-card-title {
-      font-size: 17px;
-      font-weight: 700;
-      color: #2b2824;
-      line-height: 1.3;
-    }
-
-    .status-badge {
+    .card-status-pill {
       font-size: 11px;
-      padding: 4px 10px;
+      font-weight: 700;
+      padding: 3px 10px;
       border-radius: 20px;
-      font-weight: 700;
-      white-space: nowrap;
       cursor: pointer;
     }
 
-    .status-badge.pending {
-      background: #fef3c7;
-      color: #92400e;
+    .card-status-pill.pending {
+      background: #faeedb;
+      color: #92542a;
+      border: 1px solid #dfc7ab;
     }
 
-    .status-badge.completed {
-      background: #dcfce7;
-      color: #166534;
+    .card-status-pill.completed {
+      background: #e2edd8;
+      color: #3f6828;
+      border: 1px solid #c2dbb0;
     }
 
-    .event-datetime {
-      font-size: 12px;
-      font-weight: 600;
-      color: #8c7362;
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .event-image {
-      width: 100%;
-      height: 160px;
-      object-fit: cover;
-      border-radius: 12px;
-      margin-bottom: 14px;
-      border: 1px solid #ebd9c8;
-    }
-
-    .event-note-block {
-      background: #faf6ee;
-      padding: 12px;
-      border-radius: 12px;
-      margin-bottom: 12px;
-      border-left: 3px solid #b6957e;
-    }
-
-    .event-note-title {
-      font-size: 11px;
-      text-transform: uppercase;
-      font-weight: 700;
-      color: #8c7362;
-      margin-bottom: 4px;
-    }
-
-    .event-note-desc {
-      font-size: 13px;
-      color: #4b463e;
-      line-height: 1.5;
-      white-space: pre-wrap;
-    }
-
-    /* Kilitli Anı Notu Bölümü (Değiştirilemez) */
-    .locked-memory-box {
-      background: #fff0f3;
-      border: 1px dashed #f472b6;
-      border-radius: 12px;
-      padding: 12px;
-      margin-top: auto;
-    }
-
-    .locked-memory-title {
-      font-size: 11px;
-      font-weight: 700;
-      color: #db2777;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      margin-bottom: 4px;
-    }
-
-    .locked-memory-text {
-      font-size: 12.5px;
-      color: #4a4440;
-      font-style: italic;
-      line-height: 1.45;
-    }
-
-    .btn-add-memory {
-      width: 100%;
-      background: #ffffff;
-      border: 1px solid #dfd3bf;
-      color: #6d6359;
-      padding: 9px;
-      border-radius: 10px;
+    .btn-delete-card {
+      border: none;
+      background: transparent;
+      color: #b97063;
       font-size: 12px;
       font-weight: 600;
       cursor: pointer;
-      margin-top: auto;
+      padding: 2px 6px;
+      border-radius: 6px;
       transition: all 0.2s ease;
     }
 
-    .btn-add-memory:hover {
-      background: #f7efe4;
-      color: #1f1d1a;
+    .btn-delete-card:hover {
+      background: #fbe3df;
+      color: #9f3220;
     }
 
-    /* Etkinlik Oluşturma Modal */
+    /* KARTTAKİ POLAROİD FOTOĞRAF ALANI */
+    .polaroid-frame {
+      width: 100%;
+      aspect-ratio: 1 / 0.85;
+      background: #f1e7d4;
+      border-radius: 6px;
+      overflow: hidden;
+      margin-bottom: 14px;
+      box-shadow: inset 0 2px 6px rgba(0,0,0,0.06), 0 2px 6px rgba(0,0,0,0.05);
+      border: 1px solid #e5d3bc;
+      position: relative;
+    }
+
+    .polaroid-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .polaroid-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #eadecb;
+      color: #a4937d;
+      font-size: 12px;
+      font-style: italic;
+    }
+
+    /* EL YAZISI BAŞLIK VE TARİH */
+    .card-event-title {
+      font-family: 'Caveat', cursive;
+      font-size: 22px;
+      font-weight: 700;
+      color: #8c604b;
+      text-align: center;
+      line-height: 1.15;
+      margin-bottom: 2px;
+    }
+
+    .card-event-date {
+      font-size: 11px;
+      color: #9e8e7b;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    /* DEFTER ÇİZGİLERİ VE ALINAN NOTLAR */
+    .lined-notes-area {
+      width: 100%;
+      margin-top: 4px;
+    }
+
+    .lined-notes-header {
+      font-family: 'Caveat', cursive;
+      font-size: 16px;
+      color: #966f5c;
+      margin-bottom: 2px;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    .notebook-lines {
+      width: 100%;
+      background-image: repeating-linear-gradient(transparent, transparent 20px, #e4d4bd 21px, #e4d4bd 22px);
+      line-height: 22px;
+      min-height: 66px;
+      padding: 0 4px;
+      font-size: 12.5px;
+      color: #554a3e;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    /* GÖRSELDEKİ KİLİTLİ MÜHÜR EKRANI (LOCKED / SAVED) */
+    .locked-stamp-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(250, 245, 234, 0.93);
+      border-radius: inherit;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+      backdrop-filter: blur(1.5px);
+    }
+
+    .stamp-saved-text {
+      font-size: 14px;
+      letter-spacing: 2px;
+      font-weight: 700;
+      color: #887869;
+      margin-bottom: 12px;
+    }
+
+    .stamp-seal-badge {
+      width: 64px;
+      height: 64px;
+      background: #b58066;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 4px 12px rgba(181, 128, 102, 0.35);
+      border: 3px dashed #ecdac9;
+      margin-bottom: 14px;
+    }
+
+    .stamp-seal-badge span {
+      font-size: 28px;
+      color: #ffffff;
+    }
+
+    .stamp-ribbon-text {
+      background: #cbb49e;
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 16px;
+      border-radius: 4px;
+      margin-bottom: 10px;
+      letter-spacing: 0.5px;
+    }
+
+    .stamp-locked-tag {
+      font-size: 13px;
+      letter-spacing: 2px;
+      font-weight: 700;
+      color: #5e5144;
+    }
+
+    .btn-view-locked-note {
+      margin-top: 14px;
+      background: transparent;
+      border: 1px solid #b58066;
+      color: #8c604b;
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+
+    .btn-trigger-memory {
+      margin-top: 8px;
+      width: 100%;
+      background: #fff;
+      border: 1px dashed #b58269;
+      color: #8c604b;
+      padding: 6px;
+      border-radius: 8px;
+      font-size: 11.5px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    /* MODAL FORM */
     .event-modal-box {
       background: #faf5ed;
       border: 1px solid #e2d2bf;
@@ -910,7 +1007,7 @@
 
     .btn-modal-save {
       flex: 1;
-      background: #5c4e43;
+      background: #b58269;
       color: #ffffff;
       border: none;
       padding: 12px;
@@ -1172,6 +1269,7 @@
       .counter-value { font-size: 48px; }
       .sheet { padding: 22px 16px; }
       .content-grid, .gallery-grid, .modes-grid { grid-template-columns: 1fr; }
+      .events-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -1190,7 +1288,6 @@
   <!-- SOL ÇEKMECE MENÜSÜ -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-title">Gezinti Menüsü</div>
-    <!-- Ortalanmış Menü Linkleri -->
     <div class="sidebar-nav-container">
       <div class="nav-item active" data-target="welcomeScreen">
         <span>🏠</span> Ana Sayfa
@@ -1211,7 +1308,7 @@
   <main class="view-section active-view" id="welcomeScreen">
     <div class="welcome-screen">
       
-      <!-- 3 BOYUTLU VE YÖNÜ MENÜYE DOĞRU OLAN ZARİF YAY OK (SVG) -->
+      <!-- 3 Boyutlu Yay Çizgisi -->
       <div class="curved-arrow-container">
         <svg class="curved-arrow-svg" viewBox="0 0 1000 600" preserveAspectRatio="none">
           <defs>
@@ -1232,24 +1329,9 @@
             </marker>
           </defs>
 
-          <path d="M 680 372 C 860 372 840 50 82 50" 
-                stroke="rgba(80, 50, 35, 0.28)" 
-                stroke-width="5" 
-                stroke-linecap="round" 
-                fill="none" />
-
-          <path d="M 680 370 C 860 370 840 48 80 48" 
-                stroke="url(#tubeGrad3D)" 
-                stroke-width="3.5" 
-                stroke-linecap="round" 
-                fill="none" 
-                marker-end="url(#arrowHeadLeft)"/>
-
-          <path d="M 678 369 C 856 369 836 47 84 47" 
-                stroke="url(#highlightGrad)" 
-                stroke-width="1.2" 
-                stroke-linecap="round" 
-                fill="none" />
+          <path d="M 680 372 C 860 372 840 50 82 50" stroke="rgba(80, 50, 35, 0.28)" stroke-width="5" stroke-linecap="round" fill="none" />
+          <path d="M 680 370 C 860 370 840 48 80 48" stroke="url(#tubeGrad3D)" stroke-width="3.5" stroke-linecap="round" fill="none" marker-end="url(#arrowHeadLeft)"/>
+          <path d="M 678 369 C 856 369 836 47 84 47" stroke="url(#highlightGrad)" stroke-width="1.2" stroke-linecap="round" fill="none" />
         </svg>
       </div>
 
@@ -1317,15 +1399,15 @@
     </div>
   </div>
 
-  <!-- ================= 2. GÖRÜNÜM: ETKİNLİKLER SAYFASI (YENİ) ================= -->
+  <!-- ================= 2. GÖRÜNÜM: ETKİNLİKLER SAYFASI (VINTAGE PARŞÖMEN) ================= -->
   <main class="view-section" id="eventsScreen">
     <div class="events-screen">
       <div class="events-container">
         
         <div class="events-top-bar">
           <div class="events-title-box">
-            <h2>Planlanan & Yaşanan Etkinlikler</h2>
-            <p>Birlikte yapılacaklar, anılar ve mühürlenmiş notlar</p>
+            <span class="events-title-icon">📷</span>
+            <h2>Etkinlikler</h2>
           </div>
           <button class="btn-create-event" id="btnOpenEventModal">
             <span>+</span> Yeni Etkinlik
@@ -1339,23 +1421,21 @@
           <button class="filter-btn" data-filter="completed">Yapılanlar</button>
         </div>
 
-        <!-- Kanban / Kart Listesi -->
-        <div class="events-grid" id="eventsGrid">
-          <!-- Dinamik Kartlar JS ile Buraya Eklenecek -->
-        </div>
+        <!-- Parşömen Kart Izgarası -->
+        <div class="events-grid" id="eventsGrid"></div>
 
       </div>
     </div>
   </main>
 
-  <!-- YENİ ETKİNLİK OLUŞTURMA MODAL -->
+  <!-- YENİ ETKİNLİK EKLEME MODAL -->
   <div class="modal-backdrop" id="eventModal">
     <div class="event-modal-box">
       <h3>Yeni Etkinlik Ekle</h3>
       
       <div class="form-group">
         <label>Etkinlik Başlığı *</label>
-        <input type="text" id="eventTitleInput" placeholder="Örn: Hafta Sonu Pikniği">
+        <input type="text" id="eventTitleInput" placeholder="Örn: Anamur Gezisi">
       </div>
 
       <div class="form-group">
@@ -1364,39 +1444,49 @@
       </div>
 
       <div class="form-group">
-        <label>Yapılacaklar / Plan Notu</label>
-        <textarea id="eventPlanNoteInput" placeholder="Neler yapılacak, neler konuşulacak?"></textarea>
+        <label>Alınan Notlar / Plan</label>
+        <textarea id="eventPlanNoteInput" placeholder="Neler yapılacak, nereye gidilecek?"></textarea>
       </div>
 
       <div class="form-group">
-        <label>Görsel / Fotoğraf (İsteğe Bağlı)</label>
-        <!-- Mobil kamerayı/galeriyi veya PC dosya seçimini açar -->
+        <label>Fotoğraf (Mobil Galeriden veya Dosyadan Seç)</label>
         <input type="file" id="eventImageInput" accept="image/*">
       </div>
 
       <div class="modal-actions">
-        <button class="btn-modal-save" id="btnSaveEvent">Oluştur</button>
+        <button class="btn-modal-save" id="btnSaveEvent">Kaydet</button>
         <button class="btn-modal-cancel" id="btnCancelEvent">İptal</button>
       </div>
     </div>
   </div>
 
-  <!-- KİLİTLİ ANI NOTU EKLEME MODAL (BİR KEZ KAYDEDİLİR VE ASLA DEĞİŞTİRİLEMEZ) -->
+  <!-- KİLİTLİ MÜHÜRLÜ ANI NOTU EKLEME PENCERESİ -->
   <div class="modal-backdrop" id="memoryModal">
     <div class="event-modal-box">
-      <h3 style="color: #db2777;">🔒 Etkinlik Sonrası Notu</h3>
-      <p style="font-size: 12.5px; color: #666; margin-bottom: 14px;">
-        <strong>Dikkat:</strong> Bu notu kaydettikten sonra sistem kalıcı olarak kilitleyecek ve bir daha asla değiştiremeyeceksiniz!
+      <h3 style="color: #b58066;">🔒 Etkinliği Mühürle & Kilitle</h3>
+      <p style="font-size: 12.5px; color: #7a6e60; margin-bottom: 14px; line-height: 1.5;">
+        <strong>Önemli:</strong> Bu notu kaydettiğinizde etkinlik kalıcı olarak mühürlenecek (LOCKED), üzerinde kilit rozeti çıkacak ve bu not bir daha asla değiştirilemeyecektir.
       </p>
       
       <div class="form-group">
-        <label>Günün / Anın Özel Notu</label>
-        <textarea id="eventMemoryInput" placeholder="Etkinlik nasıl geçti, hisleriniz nelerdi?" rows="4"></textarea>
+        <label>Mühürlenecek Anı Notu</label>
+        <textarea id="eventMemoryInput" placeholder="O gün yaşanan en güzel anı..." rows="4"></textarea>
       </div>
 
       <div class="modal-actions">
-        <button class="btn-modal-save" id="btnSaveMemory" style="background: #db2777;">Notu Kilitle & Kaydet</button>
+        <button class="btn-modal-save" id="btnSaveMemory">Mühürle & Kaydet</button>
         <button class="btn-modal-cancel" id="btnCancelMemory">İptal</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MÜHÜRLÜ NOTU GÖRÜNTÜLEME PENCERESİ -->
+  <div class="modal-backdrop" id="viewLockedMemoryModal">
+    <div class="event-modal-box">
+      <h3 style="color: #b58066; text-align: center;">🔒 Mühürlü Anı Defteri</h3>
+      <div class="notebook-lines" id="viewLockedMemoryText" style="margin-top: 14px; font-size: 14px; min-height: 100px;"></div>
+      <div class="modal-actions" style="margin-top: 18px;">
+        <button class="btn-modal-cancel" id="btnCloseViewMemory" style="flex:1;">Kapat</button>
       </div>
     </div>
   </div>
@@ -1421,30 +1511,13 @@
             </div>
 
             <table class="spec-table">
-              <thead>
-                <tr><th colspan="2">Genel & Donanımsal Özellikler</th></tr>
-              </thead>
+              <thead><tr><th colspan="2">Genel & Donanımsal Özellikler</th></tr></thead>
               <tbody>
-                <tr>
-                  <td class="label">Kullanıcı Kilidi</td>
-                  <td class="desc">Sadece dünyada 1 adet bulunan Auratik Kız'a biyo-rezonansla duyarlı. Başkası asla kullanamaz.</td>
-                </tr>
-                <tr>
-                  <td class="label">Kol Kapasitesi</td>
-                  <td class="desc">2 bağımsız robotik kol; her biri maksimum <strong>20 kg</strong> yük taşıma torkuna sahip.</td>
-                </tr>
-                <tr>
-                  <td class="label">Maksimum Yük</td>
-                  <td class="desc">İki kol kat kat kıyafet taşıyabilir; acil durumda auratik kızı tamamen kucaklayıp kaldırabilir.</td>
-                </tr>
-                <tr>
-                  <td class="label">Baş Ünitesi</td>
-                  <td class="desc">Çift yönlü (önlü-arkalı) şapka ve ceket kancası entegre mekanik portre.</td>
-                </tr>
-                <tr>
-                  <td class="label">Otonom Takip</td>
-                  <td class="desc">Oda içi serbest devriye; seyahat ve şehirlerarası yolculuklarda peşinden gelebilme donanımı.</td>
-                </tr>
+                <tr><td class="label">Kullanıcı Kilidi</td><td class="desc">Sadece dünyada 1 adet bulunan Auratik Kız'a biyo-rezonansla duyarlı. Başkası asla kullanamaz.</td></tr>
+                <tr><td class="label">Kol Kapasitesi</td><td class="desc">2 bağımsız robotik kol; her biri maksimum <strong>20 kg</strong> yük taşıma torkuna sahip.</td></tr>
+                <tr><td class="label">Maksimum Yük</td><td class="desc">İki kol kat kat kıyafet taşıyabilir; acil durumda auratik kızı tamamen kucaklayıp kaldırabilir.</td></tr>
+                <tr><td class="label">Baş Ünitesi</td><td class="desc">Çift yönlü (önlü-arkalı) şapka ve ceket kancası entegre mekanik portre.</td></tr>
+                <tr><td class="label">Otonom Takip</td><td class="desc">Oda içi serbest devriye; seyahat ve şehirlerarası yolculuklarda peşinden gelebilme donanımı.</td></tr>
               </tbody>
             </table>
 
@@ -1459,9 +1532,7 @@
           <div class="right-col">
             <div class="schema-frame">
               <img src="mod3.jpg" alt="Model K37-K42 Şeması">
-              <div class="schema-caption">
-                Şema 1.1: Human Valet H-V1 gövde şasisi, yük terazisi ve çift yönlü askı mimarisi.
-              </div>
+              <div class="schema-caption">Şema 1.1: Human Valet H-V1 gövde şasisi, yük terazisi ve çift yönlü askı mimarisi.</div>
             </div>
           </div>
         </div>
@@ -1482,21 +1553,15 @@
         <div class="modes-grid">
           <div class="mode-col">
             <div class="mode-col-title">1. Romantik Mod</div>
-            <div class="mode-col-desc">
-              Ağzında bazen beyaz güller bazen laleler; bazen elinde ortancalar gelincikler şakayıklar bulunur. Odanın akustiğine uygun tonda romantik şiirler okumaya çalışır, günün her anında zarafet ve hayranlık dolu övgüler fısıldar.
-            </div>
+            <div class="mode-col-desc">Ağzında bazen beyaz güller bazen laleler; bazen elinde ortancalar gelincikler şakayıklar bulunur. Odanın akustiğine uygun tonda romantik şiirler okumaya çalışır, günün her anında zarafet ve hayranlık dolu övgüler fısıldar.</div>
           </div>
           <div class="mode-col">
             <div class="mode-col-title">2. Komik Mod</div>
-            <div class="mode-col-desc">
-              Günün stresini unutturan ince espriler yapar, neşeli şakalar üretir ve kıyafetleri asarken hafif müzikler eşliğinde tebessüm ettirici bir enerji saçar.
-            </div>
+            <div class="mode-col-desc">Günün stresini unutturan ince espriler yapar, neşeli şakalar üretir ve kıyafetleri asarken hafif müzikler eşliğinde tebessüm ettirici bir enerji saçar.</div>
           </div>
           <div class="mode-col">
             <div class="mode-col-title">3. Sinirli Mod</div>
-            <div class="mode-col-desc">
-              Biraz huysuz, homurdanan ve sert mizaçlı bir askılığa dönüşür. Montu sertçe tutar, yere atılan eşyalar için trip atar ama yine de kusursuz asar. (Not: Modda istemsizce Kastamonu şivesine geçebilir, bu sorun kullanıcı talebi olmadan çözülmeyecektir.)
-            </div>
+            <div class="mode-col-desc">Biraz huysuz, homurdanan ve sert mizaçlı bir askılığa dönüşür. Montu sertçe tutar, yere atılan eşyalar için trip atar ama yine de kusursuz asar. (Not: Modda istemsizce Kastamonu şivesine geçebilir, bu sorun kullanıcı talebi olmadan çözülmeyecektir.)</div>
           </div>
         </div>
 
@@ -1569,11 +1634,10 @@
       });
     });
 
-    // Sayfa yenilendiğinde en son kalınan sayfayı aç (İlk kez açılıyorsa welcomeScreen)
     const savedActivePage = localStorage.getItem('active_bundestiga_page') || 'welcomeScreen';
     switchView(savedActivePage);
 
-    // 2. ÖPÜŞME SAYACI MANTIĞI
+    // 2. ÖPÜŞME SAYACI MOTORU
     const MODES = {
       normal: { threshold: 500, desc: "Normal bir seviyedir" },
       hiiy: { threshold: 300, desc: "Öpülmediğinde telaşlı bir şekilde sizi öpecektir" },
@@ -1720,7 +1784,7 @@
     setMode(currentMode);
     updateCounterState();
 
-    // ================= 3. ETKİNLİKLER MOTORU =================
+    // ================= 3. VINTAGE PARŞÖMEN ETKİNLİKLER MOTORU =================
     let events = JSON.parse(localStorage.getItem('bundestiga_events')) || [];
     let currentFilter = 'all';
     let targetMemoryEventId = null;
@@ -1728,9 +1792,10 @@
     const eventsGrid = document.getElementById('eventsGrid');
     const eventModal = document.getElementById('eventModal');
     const memoryModal = document.getElementById('memoryModal');
+    const viewLockedMemoryModal = document.getElementById('viewLockedMemoryModal');
     const filterButtons = document.querySelectorAll('.filter-btn');
 
-    // Filtreleme butonları
+    // Filtre butonları
     filterButtons.forEach(btn => {
       btn.addEventListener('click', () => {
         filterButtons.forEach(b => b.classList.remove('active'));
@@ -1740,7 +1805,6 @@
       });
     });
 
-    // Modal aç/kapat
     document.getElementById('btnOpenEventModal').addEventListener('click', () => {
       eventModal.classList.add('show');
     });
@@ -1752,6 +1816,10 @@
     document.getElementById('btnCancelMemory').addEventListener('click', () => {
       memoryModal.classList.remove('show');
       targetMemoryEventId = null;
+    });
+
+    document.getElementById('btnCloseViewMemory').addEventListener('click', () => {
+      viewLockedMemoryModal.classList.remove('show');
     });
 
     // Yeni Etkinlik Kaydet
@@ -1774,13 +1842,12 @@
           planNote: planNote,
           image: imgData || null,
           done: false,
-          lockedMemory: null // Kalıcı mühürlü not
+          lockedMemory: null
         };
 
         events.push(newEvent);
         localStorage.setItem('bundestiga_events', JSON.stringify(events));
 
-        // Formu temizle ve kapat
         document.getElementById('eventTitleInput').value = '';
         document.getElementById('eventDateTimeInput').value = '';
         document.getElementById('eventPlanNoteInput').value = '';
@@ -1801,7 +1868,16 @@
       }
     });
 
-    // Etkinlik Tamamlandı Durumu Değiştirme
+    // Etkinlik Silme Fonksiyonu
+    function deleteEvent(id) {
+      if (confirm("Bu etkinliği silmek istediğinize emin misiniz?")) {
+        events = events.filter(evt => evt.id !== id);
+        localStorage.setItem('bundestiga_events', JSON.stringify(events));
+        renderEvents();
+      }
+    }
+
+    // Yapıldı / Yapılacak Durumunu Değiştirme
     function toggleEventDone(id) {
       events = events.map(evt => {
         if (evt.id === id) {
@@ -1813,18 +1889,18 @@
       renderEvents();
     }
 
-    // Kilitli Anı Notu Ekleme Penceresini Açma
+    // Mühürlü Anı Notu Ekleme Penceresi Aç
     function openMemoryModal(id) {
       targetMemoryEventId = id;
       document.getElementById('eventMemoryInput').value = '';
       memoryModal.classList.add('show');
     }
 
-    // Kilitli Notu Kaydet (Birdaha Değiştirilemez)
+    // Mühürlü Notu Kaydet (Asla Değiştirilemez)
     document.getElementById('btnSaveMemory').addEventListener('click', () => {
       const memoryText = document.getElementById('eventMemoryInput').value.trim();
       if (!memoryText) {
-        alert("Lütfen bir anı notu yazınız.");
+        alert("Lütfen anı notunu boş bırakmayınız.");
         return;
       }
 
@@ -1841,13 +1917,20 @@
       renderEvents();
     });
 
-    // Etkinlikleri Sırala ve Ekrana Bas
+    // Mühürlü Notu Okuma Penceresi
+    function viewLockedMemory(id) {
+      const target = events.find(e => e.id === id);
+      if (target && target.lockedMemory) {
+        document.getElementById('viewLockedMemoryText').textContent = target.lockedMemory;
+        viewLockedMemoryModal.classList.add('show');
+      }
+    }
+
+    // Kartları Ekrana Çizdir
     function renderEvents() {
       eventsGrid.innerHTML = '';
 
-      // Sıralama mantığı:
-      // 1. Yapılacak olanlar (done === false) önce, yapılmışlar (done === true) saydam ve en sonda
-      // 2. Yapılacak olanlar kendi içinde EN ERKEN tarihten en ileri tarihe sıralanır
+      // Sıralama: Önce yapılacaklar (erken tarihten geç tarihe), sonra yapılmışlar sonda
       const sortedEvents = [...events].sort((a, b) => {
         if (a.done !== b.done) {
           return a.done ? 1 : -1;
@@ -1855,7 +1938,6 @@
         return new Date(a.datetime) - new Date(b.datetime);
       });
 
-      // Filtreleme
       const filteredEvents = sortedEvents.filter(evt => {
         if (currentFilter === 'pending') return !evt.done;
         if (currentFilter === 'completed') return evt.done;
@@ -1863,62 +1945,70 @@
       });
 
       if (filteredEvents.length === 0) {
-        eventsGrid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; color: #888; padding: 40px 10px; font-style: italic;">Henüz bu kriterde bir etkinlik bulunmuyor.</div>`;
+        eventsGrid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; color: #9c8e7e; padding: 40px 10px; font-style: italic;">Henüz bu alanda bir etkinlik bulunmuyor.</div>`;
         return;
       }
 
       filteredEvents.forEach(evt => {
         const card = document.createElement('div');
-        card.className = `event-card ${evt.done ? 'is-done' : ''}`;
+        card.className = `parchment-card ${evt.done ? 'is-done' : ''}`;
 
-        const formattedDate = new Date(evt.datetime).toLocaleString('tr-TR', {
+        const formattedDate = new Date(evt.datetime).toLocaleDateString('tr-TR', {
           day: 'numeric',
-          month: 'long',
-          year: 'numeric',
-          hour: '2-digit',
-          minute: '2-digit'
+          month: 'short',
+          year: 'numeric'
         });
 
+        // Kilitli (Locked) Durum Şablonu
+        let lockedOverlayHTML = '';
+        if (evt.lockedMemory) {
+          lockedOverlayHTML = `
+            <div class="locked-stamp-overlay">
+              <div class="stamp-saved-text">SAVED</div>
+              <div class="stamp-seal-badge">
+                <span>🔒</span>
+              </div>
+              <div class="stamp-ribbon-text">Kilitli / Değiştirilemez</div>
+              <div class="stamp-locked-tag">LOCKED</div>
+              <button class="btn-view-locked-note" onclick="viewLockedMemory('${evt.id}')">Anı Notunu Oku</button>
+            </div>
+          `;
+        }
+
         card.innerHTML = `
-          <div class="event-card-header">
-            <div class="event-card-title">${evt.title}</div>
-            <span class="status-badge ${evt.done ? 'completed' : 'pending'}" onclick="toggleEventDone('${evt.id}')">
+          ${lockedOverlayHTML}
+          <div class="card-top-actions">
+            <span class="card-status-pill ${evt.done ? 'completed' : 'pending'}" onclick="toggleEventDone('${evt.id}')">
               ${evt.done ? '✓ Yapıldı' : '⏳ Yapılacak'}
             </span>
+            <button class="btn-delete-card" onclick="deleteEvent('${evt.id}')" title="Etkinliği Sil">🗑️️ Sil</button>
           </div>
 
-          <div class="event-datetime">
-            <span>📅</span> ${formattedDate}
+          <div class="polaroid-frame">
+            ${evt.image ? `<img src="${evt.image}" alt="Etkinlik Fotoğrafı">` : `<div class="polaroid-placeholder">Fotoğraf Yok</div>`}
           </div>
 
-          ${evt.image ? `<img src="${evt.image}" class="event-image" alt="Etkinlik Görseli">` : ''}
+          <div class="card-event-title">${evt.title}</div>
+          <div class="card-event-date">${formattedDate}</div>
 
-          ${evt.planNote ? `
-            <div class="event-note-block">
-              <div class="event-note-title">Plan Notu:</div>
-              <div class="event-note-desc">${evt.planNote}</div>
+          <div class="lined-notes-area">
+            <div class="lined-notes-header">
+              <span>Alınan notlar</span>
             </div>
-          ` : ''}
+            <div class="notebook-lines">${evt.planNote || '—'}</div>
+          </div>
 
-          ${evt.lockedMemory ? `
-            <div class="locked-memory-box">
-              <div class="locked-memory-title">
-                <span>🔒</span> Mühürlü Anı Notu:
-              </div>
-              <div class="locked-memory-text">${evt.lockedMemory}</div>
-            </div>
-          ` : `
-            <button class="btn-add-memory" onclick="openMemoryModal('${evt.id}')">
-              ✍️ Etkinlik Sonrası Notu Ekle (Kilitli)
+          ${!evt.lockedMemory ? `
+            <button class="btn-trigger-memory" onclick="openMemoryModal('${evt.id}')">
+              🔒 Mühürle & Kilitle
             </button>
-          `}
+          ` : ''}
         `;
 
         eventsGrid.appendChild(card);
       });
     }
 
-    // İlk Etkinlik Yüklemesi
     renderEvents();
   </script>
 </body>
