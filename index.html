@@ -9,6 +9,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
+  <!-- FIREBASE SDK (CDN) -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-storage-compat.js"></script>
+
   <style>
     :root {
       --bg-cream: #f4eee1;
@@ -710,7 +715,6 @@
       gap: 30px 24px;
     }
 
-    /* KART YAPISI */
     .parchment-card {
       position: relative;
       background-color: #faf5ea;
@@ -730,7 +734,7 @@
         inset 0 0 35px rgba(224, 205, 175, 0.45);
       border: 1px solid #ebdcc5;
       transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
-      overflow: hidden; /* Dışa taşmayı kesin olarak engeller */
+      overflow: hidden;
     }
 
     .parchment-card:hover {
@@ -859,7 +863,6 @@
       align-items: baseline;
     }
 
-    /* KARTTAKI ÇİZGİLİ NOT ALANI (TAŞMAYI ENGELLER & MAX 3 SATIR GÖSTERİR) */
     .notebook-lines {
       width: 100%;
       max-width: 100%;
@@ -877,11 +880,6 @@
       -webkit-box-orient: vertical;
       overflow-wrap: break-word;
       word-break: break-all;
-      transition: color 0.2s ease;
-    }
-
-    .lined-notes-area:hover .notebook-lines {
-      color: #8c604b;
     }
 
     .more-hint {
@@ -893,7 +891,6 @@
       margin-top: 2px;
     }
 
-    /* KİLİTLENMİŞ KALICI NOT BÖLÜMÜ */
     .locked-memory-inline {
       width: 100%;
       max-width: 100%;
@@ -953,7 +950,6 @@
       background: #f7ede0;
     }
 
-    /* POP-UP DETAY OKUMA PENCERESİ (SCROLL EDİLEBİLİR) */
     .detail-popup-box {
       background: #faf4e8;
       border: 1.5px solid #ebd9c8;
@@ -989,7 +985,6 @@
       max-height: 55vh;
     }
 
-    /* MODAL FORMLAR */
     .event-modal-box {
       background: #faf5ed;
       border: 1px solid #e2d2bf;
@@ -1446,7 +1441,7 @@
             <span class="events-title-icon">📷</span>
             <div>
               <h2>Etkinlikler</h2>
-              <div class="sync-status" id="syncStatus">🔄 Bulut ile senkronize ediliyor...</div>
+              <div class="sync-status" id="syncStatus">☁️ Firebase Bulut Bağlantısı Aktif</div>
             </div>
           </div>
           <button class="btn-create-event" id="btnOpenEventModal">
@@ -1468,7 +1463,7 @@
     </div>
   </main>
 
-  <!-- DETAY OKUMA MODAL (UZUN METİNLER İÇİN SCROLL EDİLEBİLİR DETAY) -->
+  <!-- DETAY OKUMA MODAL -->
   <div class="modal-backdrop" id="detailModal">
     <div class="detail-popup-box">
       <div class="detail-popup-title" id="detailPopupTitle">Not Detayı</div>
@@ -1500,12 +1495,12 @@
       </div>
 
       <div class="form-group">
-        <label>Fotoğraf (Mobil Galeriden veya Dosyadan Seç)</label>
+        <label>Fotoğraf (Mobil Galeriden veya Kameradan Seç)</label>
         <input type="file" id="eventImageInput" accept="image/*">
       </div>
 
       <div class="modal-actions">
-        <button class="btn-modal-save" id="btnSaveEvent">Kaydet</button>
+        <button class="btn-modal-save" id="btnSaveEvent">Buluta Yükle</button>
         <button class="btn-modal-cancel" id="btnCancelEvent">İptal</button>
       </div>
     </div>
@@ -1516,7 +1511,7 @@
     <div class="event-modal-box">
       <h3 style="color: #b58066;">🔒 Etkinliği Mühürle & Kilitle</h3>
       <p style="font-size: 12.5px; color: #7a6e60; margin-bottom: 14px; line-height: 1.5;">
-        <strong>Önemli:</strong> Bu notu kaydettiğinizde anı notu kalıcı olarak kilitlenecek ve bir daha asla düzenlenemeyecektir.
+        <strong>Önemli:</strong> Bu not kaydedildiğinde Firebase veritabanında kalıcı olarak mühürlenecek ve bir daha asla düzenlenemeyecektir.
       </p>
       
       <div class="form-group">
@@ -1633,6 +1628,31 @@
 
   <!-- JAVASCRIPT MOTORU -->
   <script>
+    // ================= FIREBASE KURULUMU (1. ADIMDA ALDIĞINIZ BİLGİLERİ BURAYA YAZIN) =================
+    const firebaseConfig = {
+      apiKey: "BURAYA_FIREBASE_API_KEY_YAPISTIRIN",
+      authDomain: "BURAYA_PROJE_ADI.firebaseapp.com",
+      projectId: "BURAYA_PROJECT_ID",
+      storageBucket: "BURAYA_STORAGE_BUCKET.firebasestorage.app",
+      messagingSenderId: "BURAYA_MESSAGING_SENDER_ID",
+      appId: "BURAYA_APP_ID"
+    };
+
+    let db = null;
+    let storage = null;
+    let isFirebaseReady = false;
+
+    try {
+      if (firebaseConfig.apiKey && !firebaseConfig.apiKey.includes("BURAYA")) {
+        firebase.initializeApp(firebaseConfig);
+        db = firebase.firestore();
+        storage = firebase.storage();
+        isFirebaseReady = true;
+      }
+    } catch (e) {
+      console.warn("Firebase başlatılamadı:", e);
+    }
+
     // 1. SOL MENÜ VE EKRAN KALICILIĞI
     const menuToggle = document.getElementById('menuToggle');
     const sidebar = document.getElementById('sidebar');
@@ -1677,7 +1697,7 @@
     const savedActivePage = localStorage.getItem('active_bundestiga_page') || 'welcomeScreen';
     switchView(savedActivePage);
 
-    // 2. ÖPÜŞME SAYACI MOTORU
+    // 2. ÖPÜŞME SAYACI MOTORU (FIREBASE REALTIME ENTEGRELİ)
     const MODES = {
       normal: { threshold: 500, desc: "Normal bir seviyedir" },
       hiiy: { threshold: 300, desc: "Öpülmediğinde telaşlı bir şekilde sizi öpecektir" },
@@ -1685,19 +1705,13 @@
     };
 
     let currentMode = localStorage.getItem('selected_kiss_mode') || 'hiiy';
-    let lastKissTime = parseInt(localStorage.getItem('last_kiss_timestamp'), 10);
-
-    if (!lastKissTime) {
-      lastKissTime = Date.now();
-      localStorage.setItem('last_kiss_timestamp', lastKissTime);
-    }
+    let lastKissTime = parseInt(localStorage.getItem('last_kiss_timestamp'), 10) || Date.now();
 
     const minutesDisplay = document.getElementById('minutesDisplay');
     const circlesWrapper = document.getElementById('circlesWrapper');
     const modeTooltip = document.getElementById('modeTooltip');
     const modeButtons = document.querySelectorAll('.mode-pill-btn');
     const deliModal = document.getElementById('deliModal');
-    let notificationSentForCurrentPeriod = false;
 
     function setMode(modeKey) {
       currentMode = modeKey;
@@ -1752,24 +1766,27 @@
 
       if (diffMinutes >= threshold) {
         circlesWrapper.classList.add('alarm');
-        if (!notificationSentForCurrentPeriod) {
-          sendPushNotification();
-          notificationSentForCurrentPeriod = true;
-        }
       } else {
         circlesWrapper.classList.remove('alarm');
-        notificationSentForCurrentPeriod = false;
       }
     }
 
     setInterval(updateCounterState, 1000);
 
-    document.getElementById('btnKissReset').addEventListener('click', () => {
-      lastKissTime = Date.now();
+    function syncKissTime(newTime) {
+      lastKissTime = newTime;
       localStorage.setItem('last_kiss_timestamp', lastKissTime);
-      notificationSentForCurrentPeriod = false;
       updateCounterState();
-      syncKissTimeToCloud(lastKissTime);
+
+      if (isFirebaseReady) {
+        db.collection('app_state').doc('kiss_counter').set({
+          lastKissTime: newTime
+        }, { merge: true });
+      }
+    }
+
+    document.getElementById('btnKissReset').addEventListener('click', () => {
+      syncKissTime(Date.now());
     });
 
     const dateEditorCard = document.getElementById('dateEditorCard');
@@ -1787,12 +1804,8 @@
     document.getElementById('btnSaveCustomDate').addEventListener('click', () => {
       const selectedValue = customDatetimeInput.value;
       if (selectedValue) {
-        lastKissTime = new Date(selectedValue).getTime();
-        localStorage.setItem('last_kiss_timestamp', lastKissTime);
-        notificationSentForCurrentPeriod = false;
-        updateCounterState();
+        syncKissTime(new Date(selectedValue).getTime());
         dateEditorCard.classList.remove('open');
-        syncKissTimeToCloud(lastKissTime);
       }
     });
 
@@ -1807,30 +1820,29 @@
         if (permission === "granted") {
           btnToggleNotify.textContent = "🔔 Bildirimler Açık";
           new Notification("Öpüşme Sayacı", {
-            body: "Bildirimler başarıyla açıldı! Eşik aşıldığında haber vereceğiz.",
+            body: "Bildirimler başarıyla açıldı!",
             icon: "favicon.jpg"
           });
         }
       });
     });
 
-    function sendPushNotification() {
-      if ("Notification" in window && Notification.permission === "granted") {
-        new Notification("Dikkat! Eşik Aşıldı 💋", {
-          body: "Belirlenen öpüşmeme süresi aşıldı! Acilen öpüşme gerekiyor!",
-          icon: "favicon.jpg"
-        });
-      }
+    // Firebase'den Canlı Sayaç Dinleme (PC/Telefon Senkronizasyonu)
+    if (isFirebaseReady) {
+      db.collection('app_state').doc('kiss_counter').onSnapshot(doc => {
+        if (doc.exists && doc.data().lastKissTime) {
+          lastKissTime = doc.data().lastKissTime;
+          localStorage.setItem('last_kiss_timestamp', lastKissTime);
+          updateCounterState();
+        }
+      });
     }
 
     setMode(currentMode);
     updateCounterState();
 
-    // ================= 3. BULUT SENKRONİZASYONU & ETKİNLİKLER =================
-    const CLOUD_BIN_ID = "67530669ad19ca34f8d6fcb2";
-    const CLOUD_API_KEY = "$2a$10$tZzCjG1yZ4vS34kKkW2r9e.7N8QpW0j00lVl.L9j4w4x.94hB14vO";
-
-    let events = JSON.parse(localStorage.getItem('bundestiga_events')) || [];
+    // ================= 3. FIREBASE ETKİNLİKLER & GÖRSEL DEPOLAMA MOTORU =================
+    let events = JSON.parse(localStorage.getItem('local_events_backup')) || [];
     let currentFilter = 'all';
     let targetMemoryEventId = null;
 
@@ -1843,100 +1855,6 @@
     const filterButtons = document.querySelectorAll('.filter-btn');
     const syncStatus = document.getElementById('syncStatus');
 
-    // Buluttan Veri Çekme
-    async function loadFromCloud() {
-      try {
-        syncStatus.textContent = "🔄 Bulut kontrol ediliyor...";
-        const res = await fetch(`https://api.jsonbin.io/v3/b/${CLOUD_BIN_ID}/latest`, {
-          headers: { 'X-Master-Key': CLOUD_API_KEY }
-        });
-        if (res.ok) {
-          const data = await res.json();
-          if (data.record) {
-            if (Array.isArray(data.record.events)) {
-              events = data.record.events;
-              localStorage.setItem('bundestiga_events', JSON.stringify(events));
-            }
-            if (data.record.lastKissTime) {
-              lastKissTime = data.record.lastKissTime;
-              localStorage.setItem('last_kiss_timestamp', lastKissTime);
-              updateCounterState();
-            }
-          }
-          syncStatus.textContent = "☁️ Bulutla eşitlendi (PC & Mobil Ortak)";
-        }
-      } catch (e) {
-        syncStatus.textContent = "📱 Yerel hafıza devrede";
-      }
-      renderEvents();
-    }
-
-    // Buluta Kaydetme
-    async function saveToCloud() {
-      localStorage.setItem('bundestiga_events', JSON.stringify(events));
-      renderEvents();
-      try {
-        syncStatus.textContent = "☁️ Kaydediliyor...";
-        await fetch(`https://api.jsonbin.io/v3/b/${CLOUD_BIN_ID}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-Master-Key': CLOUD_API_KEY
-          },
-          body: JSON.stringify({
-            events: events,
-            lastKissTime: lastKissTime
-          })
-        });
-        syncStatus.textContent = "☁️ Buluta kaydedildi ✓";
-      } catch (err) {
-        syncStatus.textContent = "⚠️ Yerel kaydedildi (Ağ yok)";
-      }
-    }
-
-    function syncKissTimeToCloud(newTime) {
-      fetch(`https://api.jsonbin.io/v3/b/${CLOUD_BIN_ID}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Master-Key': CLOUD_API_KEY
-        },
-        body: JSON.stringify({
-          events: events,
-          lastKissTime: newTime
-        })
-      }).catch(() => {});
-    }
-
-    // Görsel Sıkıştırma
-    function compressImage(file, callback) {
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        const img = new Image();
-        img.onload = function() {
-          const canvas = document.createElement('canvas');
-          const maxDim = 800;
-          let width = img.width;
-          let height = img.height;
-          if (width > height && width > maxDim) {
-            height = Math.round((height * maxDim) / width);
-            width = maxDim;
-          } else if (height > maxDim) {
-            width = Math.round((width * maxDim) / height);
-            height = maxDim;
-          }
-          canvas.width = width;
-          canvas.height = height;
-          const ctx = canvas.getContext('2d');
-          ctx.drawImage(img, 0, 0, width, height);
-          callback(canvas.toDataURL('image/jpeg', 0.72));
-        };
-        img.src = e.target.result;
-      };
-      reader.readAsDataURL(file);
-    }
-
-    // Filtreleme
     filterButtons.forEach(btn => {
       btn.addEventListener('click', () => {
         filterButtons.forEach(b => b.classList.remove('active'));
@@ -1963,91 +1881,138 @@
       detailModal.classList.remove('show');
     });
 
-    // Detay Okuma Pop-up'ı Açma Fonksiyonu
     function openDetailPopup(title, content) {
       detailPopupTitle.textContent = title;
       detailPopupText.textContent = content;
       detailModal.classList.add('show');
     }
 
-    // Yeni Etkinlik Ekleme
-    document.getElementById('btnSaveEvent').addEventListener('click', () => {
+    // Firebase Real-time Dinleme (Telefondan yüklenince PC'de anında çıkar)
+    if (isFirebaseReady) {
+      db.collection('events').orderBy('createdAt', 'desc').onSnapshot(snapshot => {
+        events = [];
+        snapshot.forEach(doc => {
+          events.push({ id: doc.id, ...doc.data() });
+        });
+        localStorage.setItem('local_events_backup', JSON.stringify(events));
+        renderEvents();
+      }, err => {
+        console.error("Firestore dinleme hatası:", err);
+      });
+    }
+
+    // Yeni Etkinlik & Fotoğraf Yükleme (Firebase Storage + Firestore)
+    document.getElementById('btnSaveEvent').addEventListener('click', async () => {
       const title = document.getElementById('eventTitleInput').value.trim();
       const datetime = document.getElementById('eventDateTimeInput').value;
       const planNote = document.getElementById('eventPlanNoteInput').value.trim();
-      const imageFileInput = document.getElementById('eventImageInput');
+      const fileInput = document.getElementById('eventImageInput');
+      const saveBtn = document.getElementById('btnSaveEvent');
 
       if (!title || !datetime) {
-        alert("Lütfen en azından Etkinlik Başlığı ve Tarih/Saat giriniz.");
+        alert("Lütfen başlık ve tarih/saat alanlarını doldurun.");
         return;
       }
 
-      function finishSave(imgData) {
-        const newEvent = {
-          id: 'evt_' + Date.now(),
+      saveBtn.textContent = "Yükleniyor...";
+      saveBtn.disabled = true;
+
+      try {
+        let imageUrl = null;
+
+        // Fotoğraf varsa Cloud Storage'a yükle
+        if (isFirebaseReady && fileInput.files && fileInput.files[0]) {
+          const file = fileInput.files[0];
+          const fileRef = storage.ref(`events/${Date.now()}_${file.name}`);
+          const uploadSnapshot = await fileRef.put(file);
+          imageUrl = await uploadSnapshot.ref.getDownloadURL();
+        }
+
+        const newEventData = {
           title: title,
           datetime: datetime,
           planNote: planNote,
-          image: imgData || null,
+          image: imageUrl,
           done: false,
-          lockedMemory: null
+          lockedMemory: null,
+          createdAt: Date.now()
         };
 
-        events.push(newEvent);
-        saveToCloud();
+        if (isFirebaseReady) {
+          await db.collection('events').add(newEventData);
+        } else {
+          // Firebase bilgisi girilmediyse yerel yedeğe ekle
+          newEventData.id = 'evt_' + Date.now();
+          events.unshift(newEventData);
+          localStorage.setItem('local_events_backup', JSON.stringify(events));
+          renderEvents();
+        }
 
         document.getElementById('eventTitleInput').value = '';
         document.getElementById('eventDateTimeInput').value = '';
         document.getElementById('eventPlanNoteInput').value = '';
-        imageFileInput.value = '';
+        fileInput.value = '';
         eventModal.classList.remove('show');
-      }
-
-      if (imageFileInput.files && imageFileInput.files[0]) {
-        compressImage(imageFileInput.files[0], finishSave);
-      } else {
-        finishSave(null);
+      } catch (err) {
+        alert("Yükleme sırasında hata oluştu: " + err.message);
+      } finally {
+        saveBtn.textContent = "Buluta Yükle";
+        saveBtn.disabled = false;
       }
     });
 
-    function deleteEvent(id) {
-      if (confirm("Bu etkinliği silmek istediğinize emin misiniz?")) {
-        events = events.filter(evt => evt.id !== id);
-        saveToCloud();
+    // Etkinlik Silme
+    async function deleteEvent(id) {
+      if (confirm("Bu etkinliği buluttan tamamen silmek istediğinize emin misiniz?")) {
+        if (isFirebaseReady) {
+          await db.collection('events').doc(id).delete();
+        } else {
+          events = events.filter(e => e.id !== id);
+          localStorage.setItem('local_events_backup', JSON.stringify(events));
+          renderEvents();
+        }
       }
     }
 
-    function toggleEventDone(id) {
-      events = events.map(evt => {
-        if (evt.id === id) {
-          return { ...evt, done: !evt.done };
-        }
-        return evt;
-      });
-      saveToCloud();
+    // Tamamlandı / Yapılacak Durumu
+    async function toggleEventDone(id, currentStatus) {
+      if (isFirebaseReady) {
+        await db.collection('events').doc(id).update({
+          done: !currentStatus
+        });
+      } else {
+        events = events.map(e => e.id === id ? { ...e, done: !currentStatus } : e);
+        localStorage.setItem('local_events_backup', JSON.stringify(events));
+        renderEvents();
+      }
     }
 
+    // Mühürlü Not Modal Aç
     function openMemoryModal(id) {
       targetMemoryEventId = id;
       document.getElementById('eventMemoryInput').value = '';
       memoryModal.classList.add('show');
     }
 
-    document.getElementById('btnSaveMemory').addEventListener('click', () => {
+    // Mühürlü Notu Kaydet (Asla Değiştirilemez)
+    document.getElementById('btnSaveMemory').addEventListener('click', async () => {
       const memoryText = document.getElementById('eventMemoryInput').value.trim();
       if (!memoryText) {
         alert("Lütfen anı notunu boş bırakmayınız.");
         return;
       }
 
-      events = events.map(evt => {
-        if (evt.id === targetMemoryEventId) {
-          return { ...evt, lockedMemory: memoryText, done: true };
-        }
-        return evt;
-      });
+      if (isFirebaseReady && targetMemoryEventId) {
+        await db.collection('events').doc(targetMemoryEventId).update({
+          lockedMemory: memoryText,
+          done: true
+        });
+      } else {
+        events = events.map(e => e.id === targetMemoryEventId ? { ...e, lockedMemory: memoryText, done: true } : e);
+        localStorage.setItem('local_events_backup', JSON.stringify(events));
+        renderEvents();
+      }
 
-      saveToCloud();
       memoryModal.classList.remove('show');
       targetMemoryEventId = null;
     });
@@ -2057,9 +2022,7 @@
       eventsGrid.innerHTML = '';
 
       const sortedEvents = [...events].sort((a, b) => {
-        if (a.done !== b.done) {
-          return a.done ? 1 : -1;
-        }
+        if (a.done !== b.done) return a.done ? 1 : -1;
         return new Date(a.datetime) - new Date(b.datetime);
       });
 
@@ -2084,13 +2047,9 @@
           year: 'numeric'
         });
 
-        // Alınan notlar alanı (Tıklandığında tam metin açılır)
-        const planNoteSafe = (evt.planNote || '—').replace(/"/g, '&quot;');
-        const lockedMemorySafe = (evt.lockedMemory || '').replace(/"/g, '&quot;');
-
         card.innerHTML = `
           <div class="card-top-actions">
-            <span class="card-status-pill ${evt.done ? 'completed' : 'pending'}" onclick="toggleEventDone('${evt.id}')">
+            <span class="card-status-pill ${evt.done ? 'completed' : 'pending'}" onclick="toggleEventDone('${evt.id}', ${evt.done})">
               ${evt.done ? '✓ Yapıldı' : '⏳ Yapılacak'}
             </span>
             <button class="btn-delete-card" onclick="deleteEvent('${evt.id}')" title="Etkinliği Sil">🗑 Sil</button>
@@ -2129,7 +2088,7 @@
       });
     }
 
-    loadFromCloud();
+    renderEvents();
   </script>
 </body>
 </html>
